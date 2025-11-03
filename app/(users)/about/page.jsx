@@ -112,7 +112,7 @@ export default function About() {
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="M19 12H5m14 0-4 4m4-4-4-4"/>
               </svg>
             </div>
-            <p className=" text-gray-500 pr-60 mb-2 text-base">Design Engineer with strong knowledge of data science, including data analysis, machine learning, and statistical modeling. Skilled in data preprocess and data visualization tools, with applying data-driven solutions to enhance digital products and user experiences.</p>
+            <p className=" text-gray-500 mb-2 text-base">Design Engineer with strong knowledge of data science, including data analysis, machine learning, and statistical modeling. Skilled in data preprocess and data visualization tools, with applying data-driven solutions to enhance digital products and user experiences.</p>
             <ul className="flex flex-wrap gap-2 mb-8">
               <li className="bg-black text-cyan-300 flex flex-wrap gap-1 px-3 py-1 rounded-full border hover:border-white  relative border-neutral-200 dark:border-neutral-800 hover:bg-black hover:text-cyan-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/40">Numpy</li>
               <li className="bg-black text-cyan-300 flex flex-wrap gap-1 px-3 py-1 rounded-full border hover:border-white  relative border-neutral-200 dark:border-neutral-800 hover:bg-black hover:text-cyan-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/40">Pandas</li>
@@ -126,7 +126,7 @@ export default function About() {
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="M19 12H5m14 0-4 4m4-4-4-4"/>
               </svg>
             </div>
-            <p className=" text-gray-500 pr-60 mb-2 text-base">Design Engineer with strong knowledge of Artificial Intelligence and Machine Learning. Skilled in building predictive models, data preprocessing, and deploying ML solutions using Python, TensorFlow, and Scikit-learn , with a focus on AIML, Data Science, AIML in the Medical Field, and Computational Human Intelligence Education.</p>
+            <p className=" text-gray-500 mb-2 text-base">Design Engineer with strong knowledge of Artificial Intelligence and Machine Learning. Skilled in building predictive models, data preprocessing, and deploying ML solutions using Python, TensorFlow, and Scikit-learn , with a focus on AIML, Data Science, AIML in the Medical Field, and Computational Human Intelligence Education.</p>
             <ul className="flex flex-wrap gap-2 mb-8">
               <li className="bg-black text-cyan-300 flex flex-wrap gap-1 px-3 py-1 rounded-full border hover:border-white  relative border-neutral-200 dark:border-neutral-800 hover:bg-black hover:text-cyan-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/40">SKlearn</li>
               <li className="bg-black text-cyan-300 flex flex-wrap gap-1 px-3 py-1 rounded-full border hover:border-white  relative border-neutral-200 dark:border-neutral-800 hover:bg-black hover:text-cyan-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/40">Tensorflow</li>
@@ -154,7 +154,7 @@ export default function About() {
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="M19 12H5m14 0-4 4m4-4-4-4"/>
               </svg>
             </div>
-            <p className=" text-gray-500 pr-60 mb-2 text-base">Strong command of DBMS principles MySQL, PostgreSQL, and MongoDB. Skilled in schema design, query optimization, and data modeling for both relational and NoSQL systems.</p>
+            <p className=" text-gray-500 mb-2 text-base">Strong command of DBMS principles MySQL, PostgreSQL, and MongoDB. Skilled in schema design, query optimization, and data modeling for both relational and NoSQL systems.</p>
             <ul className="flex flex-wrap gap-2 mb-8">
               <li className="bg-black text-cyan-300 flex flex-wrap gap-1 px-3 py-1 rounded-full border hover:border-white  relative border-neutral-200 dark:border-neutral-800 hover:bg-black hover:text-cyan-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/40">MySQL</li>
               <li className="bg-black text-cyan-300 flex flex-wrap gap-1 px-3 py-1 rounded-full border hover:border-white  relative border-neutral-200 dark:border-neutral-800 hover:bg-black hover:text-cyan-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/40">PostgreSQL</li>
