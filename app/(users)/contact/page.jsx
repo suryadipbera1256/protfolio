@@ -20,7 +20,7 @@ export default function Contact() {
 <div className=" mb-5 ">
     
   <h1 className="trxt-semibold text-cyan-300 ">My Location Map</h1>
-  <div className="w-384px h-384px px-30 rounded-lg "><Map /></div>
+<Map />
 
 </div> 
 <a href={`tel:${profile.phone}`}>

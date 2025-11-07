@@ -45,6 +45,21 @@ export const profile = {
       description_3: 'This project implements a machine learning approach to classify drugs based on biomarkers related to epileptic seizures. The model utilizes a Support Vector Classifier (SVC) and employs various visualization techniques to interpret the results.',
       link_3: 'https://github.com/suryadipbera1256/Epileptic-Seizure-Recognition',
 
+      title_4: 'AI chatbot built with Bolt database',
+      description_4: 'An AI chatbot built with Bolt.new combines natural language processing and persistent memory using OpenAI’s Assistant API and Bolt’s auto-generated backend. It enables: - Conversational memory: Tracks user sessions and context across interactions.',
+      link_4: 'https://website-personal-ai-vf35.bolt.host/',
+
+      title_5: 'Quote-Guessing-Game-using-Web-Scraping',
+      description_5: 'we will scrape a quote and details of the author from any web-site using python framework called BeautifulSoup and develop a guessing game using different data structures and algorithm.',
+      link_5: 'https://suryaquoteguessinggame.streamlit.app/',
+
+      title_6: 'Tic-Tac-Toe Game',
+      description_6: 'This project is a basic implementation of the classic Tic-Tac-Toe game played in the command line. The computer plays as "X" and always starts by placing its first move in the center of the board. The user plays as "O" and inputs their moves by selecting a numbered square on the board.',
+      link_6: 'https://github.com/suryadipbera1256/Tic-Tac-Toe-using-python?tab=readme-ov-file',
+
+      title_7: 'Library-Management-System',
+      description_7: 'The Library Management System project is a web application built using Flask and Flask-SQLAlchemy that allows users to manage a collection of books. It provides features to add, update, delete, and search for books by title or author.',
+      link_7: 'https://github.com/suryadipbera1256/Library-Management-System',
 
     }
   ],
@@ -56,7 +71,7 @@ export const profile = {
       link_1: 'https://drive.google.com/file/d/1M6GBqRyozCkHEt5xmdH4F96pu631mDpw/view?pli=1',
 
       title_2: 'Atizon',
-      description_2: 'publication description 2',
+      description_2: 'Recently not publish\]',
       link_2: 'https://github.com/suryadipbera1256/Lung-Cancer-Detection-Using-CNN'
     }
   ],

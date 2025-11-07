@@ -1,0 +1,21 @@
+{
+  "name": "Suryadip Bera",
+  "summary": "Design Engineer blending design and technology to craft intuitive digital experiences.",
+  "projects": [
+    {
+      "title": "Portfolio Site",
+      "stack": ["Next.js", "Tailwind", "Vercel"],
+      "highlights": ["Sticky sidebar", "Google Maps integration", "Animated borders"]
+    },
+    {
+      "title": "Lung Cancer Detection AI",
+      "stack": ["Next.js", "Python", "TensorFlow"],
+      "highlights": ["CT upload", "Inference UI"]
+    }
+  ],
+  "awards": ["First Position in Innovative Project Competition"],
+  "research": ["Drug classification using ML (RISCC Conference)"],
+  "skills": ["Next.js", "React", "Figma", "Python", "Supabase"],
+  "goals": ["Launch portfolio", "Deploy AI model", "Build chatbot"],
+  "mindset": "Proactive, ambitious, detail-oriented."
+}

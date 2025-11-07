@@ -1,5 +1,23 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@font-face {
+  font-family: "SuryadipSans";
+  src: url("/fonts/YourCustomFont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-suryadip {
+  font-family: "SuryadipSans", ui-sans-serif, system-ui;
+}
+
+.bg-brand-base {
+  background-color: #0b0f14;
+}
 
 :root {
   --background: #000000;
