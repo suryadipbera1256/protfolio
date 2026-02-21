@@ -4,25 +4,19 @@ import React from "react";
 
 export default function ShapChart() {
   // Replace this with your actual imported JSON data later
-  const shapData = [
-    { feature: "Sensor 11 (Static Pressure)", importance: 2.45 },
-    { feature: "Sensor 14 (Core Speed)", importance: 1.82 },
-    { feature: "Sensor 09 (Physical Fan Speed)", importance: 1.34 },
-    { feature: "Operating Cycle", importance: 0.95 },
-    { feature: "Sensor 04 (Total Temperature)", importance: 0.62 },
-    { feature: "Sensor 15 (Bypass Ratio)", importance: 0.41 },
-  ];
+const shapData = [
+    { feature: "Temperature_roll_mean", importance: 2.477489948272705},
+    { feature: "Vibration_roll_mean", importance: 1.00245201587677},
+    { feature: "Pressure_roll_mean", importance: 1.00245201587677},
+    { feature: "Vibration", importance: 0.4880492687225342 },
+    { feature: "Pressure", importance: 0.32502293586730957 },
+    { feature: "Temperature", importance: 0.14670076966285706 },
+    ];
+const maxImportance = Math.max(...shapData.map(d => d.importance));
 
   // Find max value to scale the bars properly
-  const maxImportance = Math.max(...shapData.map(d => d.importance));
-
-  return (
+return (
     <div className="bg-white/5 border border-white/10 p-6 rounded-2xl my-6">
-      <h3 className="text-xl font-bold text-white mb-2">Feature Importance (SHAP Values)</h3>
-      <p className="text-sm text-gray-400 mb-6">
-        Global interpretability showing which sensor readings have the highest impact on Remaining Useful Life (RUL) predictions.
-      </p>
-
       <div className="space-y-4">
         {shapData.map((item, index) => {
           // Calculate percentage width for the bar

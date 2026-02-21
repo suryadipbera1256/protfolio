@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import mermaid from 'mermaid';
-
+import React from "react";
 // Initialize mermaid with default settings
 mermaid.initialize({
   startOnLoad: false,

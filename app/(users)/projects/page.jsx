@@ -5,35 +5,80 @@ import ShapChart from '../../../components/ShapChart';
 
 // 1. Stable Flowchart Syntax (Guaranteed to work without syntax errors)
 const factoryGuardFlow = `flowchart LR
-  subgraph Cloud [Google Cloud / AWS]
-    direction LR
-    A[(NASA CMAPSS)] --> B[Preprocessing]
-    B --> C[XGBoost Model]
-    C --> D[SHAP Monitoring]
+  %% Styling
+  classDef factory fill:#0f172a,stroke:#334155,color:#fff,stroke-width:2px
+  classDef process fill:#1e293b,stroke:#0891b2,color:#fff,stroke-width:2px
+  classDef model fill:#312e81,stroke:#6366f1,color:#fff,stroke-width:2px
+  classDef app fill:#064e3b,stroke:#10b981,color:#fff,stroke-width:2px
+  classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
+  classDef safe fill:#14532d,stroke:#22c55e,color:#fff,stroke-width:2px
+
+  subgraph IoT ["🏭 Sensors"]
+    S(Temp, Pressure, Vib)
   end
+  class IoT factory
 
-  style Cloud fill:#0f172a,stroke:#334155,color:#fff
-  style A fill:#1e293b,stroke:#0891b2
-  style B fill:#1e293b,stroke:#0891b2
-  style C fill:#1e293b,stroke:#0891b2
-  style D fill:#1e293b,stroke:#0891b2`;
+  subgraph Pipeline ["⚙️ Data Pipeline"]
+    direction TB
+    P1(Interpolate & Roll Mean) --> P2(SMOTE)
+  end
+  class Pipeline process
 
+  subgraph Engine ["🧠 ML Engine"]
+    direction TB
+    M1[(XGBoost)] --- M2{SHAP}
+  end
+  class Engine model
+
+  subgraph Deploy ["💻 Deployment"]
+    D(Flask UI & API)
+  end
+  class Deploy app
+
+  %% Flow
+  IoT --> Pipeline --> Engine --> Deploy
+  Deploy --> T{Prob >= 50%?}
+  T -- Yes --> Danger[CRITICAL RISK]
+  T -- No --> Safe[Healthy ✅]
+
+  class Danger alert
+  class Safe safe
+`;
+  
 export default function Projects() {
   return (
     <main className="min-h-screen text-white">
       <section className="max-w-4xl mx-auto py-20 px-4">
         <h1 className="text-3xl font-bold text-cyan-300">Projects</h1>
+        {profile.projects.map((p, i) => (
+            <div key={i} className="p-4 rounded-lg bg-black border hover:border-white relative border-neutral-200 dark:border-neutral-800 transition duration-400 ease-in-out hover:-translate-y-1 hover:scale-100 transition-colors duration-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80">
+              <h3 className="text-2xl font-semibold text-gray-400">{p.title_2}</h3>
+              <p className="text-gray-500 mt-2">{p.description_2}</p>
+              <div className="flex items-center gap-1">
+                <a href={p.link_2} target="_blank" rel="noreferrer" className="mt-4 text-cyan-300 hover:text-cyan-600 inline-block">View repo / demo</a>
+                <svg className=" mt-5 w-[20px] h-[20px] text-cyan-300 dark:text-cyan-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                </svg>
+              </div>
+            </div>
+          ))}
 
         {/* --- MLOPS ARCHITECTURE DIAGRAM --- */}
-        <div className="mt-10 mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4">MLOps Architecture: FactoryGuard AI</h2>
-          <p className="text-gray-400 mb-6">
+        <div className="mt-5 mb-5">
+          
+          {/* THE FIX: Both charts now share the exact same width (w-full) and spacing */}
+          <div className="w-full flex flex-col gap-2">
+          <h2 className="text-2xl font-bold text-white  ml-4">MLOps Architecture: FactoryGuard AI</h2>
+          <p className="text-gray-400  ml-4">
             This interactive diagram illustrates the end-to-end automated pipeline for my predictive 
             maintenance system, showcasing data flow from raw sensor inputs to explainable model monitoring.
           </p>
-          <Mermaid chart={factoryGuardFlow} />
-          <div className="mt-8">
-            <ShapChart />
+            <Mermaid chart={factoryGuardFlow} />
+          <h3 className="text-xl font-bold text-white mb-2">Feature Importance (SHAP Values)</h3>
+      <p className="text-sm text-gray-400 mb-6">
+        Global interpretability showing which sensor readings have the highest impact on Remaining Useful Life (RUL) predictions.
+      </p>
+            <ShapChart/>
           </div>
         </div>
 
@@ -45,19 +90,6 @@ export default function Projects() {
               <p className="text-gray-500 mt-2">{p.description_1}</p>
               <div className="flex items-center gap-1">
                 <a href={p.link_1} target="_blank" rel="noreferrer" className="mt-4 text-cyan-300 hover:text-cyan-600 inline-block">View repo / demo</a>
-                <svg className=" mt-5 w-[20px] h-[20px] text-cyan-300 dark:text-cyan-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="M19 12H5m14 0-4 4m4-4-4-4" />
-                </svg>
-              </div>
-            </div>
-          ))}
-
-          {profile.projects.map((p, i) => (
-            <div key={i} className="p-6 rounded-lg bg-black border hover:border-white relative border-neutral-200 dark:border-neutral-800 transition duration-400 ease-in-out hover:-translate-y-1 hover:scale-100 transition-colors duration-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80">
-              <h3 className="text-2xl font-semibold text-gray-400">{p.title_2}</h3>
-              <p className="text-gray-500 mt-2">{p.description_2}</p>
-              <div className="flex items-center gap-1">
-                <a href={p.link_2} target="_blank" rel="noreferrer" className="mt-4 text-cyan-300 hover:text-cyan-600 inline-block">View repo / demo</a>
                 <svg className=" mt-5 w-[20px] h-[20px] text-cyan-300 dark:text-cyan-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" d="M19 12H5m14 0-4 4m4-4-4-4" />
                 </svg>
