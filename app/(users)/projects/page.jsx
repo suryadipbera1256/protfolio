@@ -1,6 +1,7 @@
 import { profile } from '../../../data/profile';
 import Image from 'next/image';
 import Mermaid from '../../../components/Mermaid';
+import ShapChart from '../../../components/ShapChart';
 
 // 1. Stable Flowchart Syntax (Guaranteed to work without syntax errors)
 const factoryGuardFlow = `flowchart LR
@@ -31,6 +32,9 @@ export default function Projects() {
             maintenance system, showcasing data flow from raw sensor inputs to explainable model monitoring.
           </p>
           <Mermaid chart={factoryGuardFlow} />
+          <div className="mt-8">
+            <ShapChart />
+          </div>
         </div>
 
         {/* --- PROJECT GRID --- */}
