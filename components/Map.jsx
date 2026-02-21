@@ -1,47 +1,37 @@
-// components/MyLocationMap.js
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { useState } from 'react';
+"use client"; // 1. Must be a client component
 
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+
+// 2. Map MUST have a defined height and width
 const containerStyle = {
-  width: '100%',
-  height: '300px',
+  width: "100%",
+  height: "400px",
+  borderRadius: "12px"
+};
+
+// Map centered near Bellandur, Bangalore
+const center = {
+  lat: 12.9304,
+  lng: 77.6784,
 };
 
 export default function Map() {
-  const [location, setLocation] = useState(null);
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY, // 3. Uses the env variable
+  });
 
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        (error) => {
-          console.error('Error getting location:', error);
-        }
-      );
-    } else {
-      alert('Geolocation is not supported by your browser.');
-    }
-  };
+  if (loadError) return <div>Error loading maps</div>;
+  if (!isLoaded) return <div className="animate-pulse bg-gray-200 h-[400px] w-full rounded-xl">Loading Map...</div>;
 
   return (
-    <LoadScript googleMapsApiKey={"AIzaSyBRJQDpFTb2kUwGSZAYSAgvRFO_E_ZbWHc"}>
-      
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={location || { lat: 12.926058, lng: 77.675242}} // fallback to Jakarta
-        zoom={11}
-      >
-        {location && <Marker position={location} />}
-      </GoogleMap>
-      <button onClick={getLocation} type="button" className=" mt-2 min-w-sm text-white bg-linear-to-r from-cyan-600 to-black hover:bg-cyan-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:focus:ring-blue-800 ">Show My Location 📍</button>
-    </LoadScript>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={14}
+    >
+      {/* 4. MUST use MarkerF instead of Marker in modern React */}
+      <MarkerF position={center} />
+    </GoogleMap>
   );
 }
-
-// 12.930779 , 77.678216
-// 12.926058, 77.675242
