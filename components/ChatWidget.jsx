@@ -6,7 +6,7 @@ import clsx from "clsx";
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hi, I’m LiLi personal assistant of Suryadip. Ask me anything about his work, mindset, or achievements!" }
+    { role: "assistant", content: "Hey! I'm a digital version of Suryadip. Ask me anything about his work, mindset, or achievements!" }
   ]);
   const [input, setInput] = useState("");
   const [showPopup, setShowPopup] = useState(true);
@@ -113,7 +113,7 @@ export default function ChatWidget() {
     <>
       {showPopup && (
         <div className="fixed bottom-20 right-6 bg-white text-black px-4 py-2 rounded-lg shadow-lg z-50">
-          Hi, I’m Suryadip’s assistant. Ask me anything!
+          Hey! I'm a digital version of Suryadip. Ask me anything...
         </div>
       )}
 
