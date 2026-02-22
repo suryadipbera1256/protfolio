@@ -31,6 +31,27 @@ className="flex flex-wrap gap-1 items-center bg-black border hover:border-white 
 {/* <h1 className="text-3xl font-bold">Certifications</h1> */}
 
 <div className="grid md:grid-cols-4 gap-6 mt-6 mb-15 p-4">
+{profile.certifications.map((R,M)=>(
+<div key={M} className="p-6  rounded-lg bg-black border hover:border-white  relative border-neutral-200 dark:border-neutral-800 transition  duration-400 ease-in-out hover:-translate-y-1 hover:scale-100 transition-colors duration-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80">
+<h3 className="text-2xl font-semibold text-gray-400">{R.title_4}</h3>
+<p className="mt-2 text-gray-500 mb-6">{R.description_4}</p>
+            <div className="flex items-center gap-6 rounded-full border bg-white/70 p-1 text-xs font-semibold text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/70 dark:text-white">
+              <h3 className="mr-4 text-cyan-300 line-clamp-2 flex-grow pl-2 leading-none tracking-tight">Coursera</h3>
+              <a  href={R.link_4} className="flex-none rounded-full bg-blue-600 bg-cyan-300 hover:bg-cyan-600 p-2 text-black">View certification</a>
+            </div>
+</div>
+))}
+
+{profile.certifications.map((R,M)=>(
+<div key={M} className="p-6  rounded-lg bg-black border hover:border-white  relative border-neutral-200 dark:border-neutral-800 transition  duration-400 ease-in-out hover:-translate-y-1 hover:scale-100 transition-colors duration-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80">
+<h3 className="text-2xl font-semibold text-gray-400">{R.title_5}</h3>
+<p className="mt-2 text-gray-500 mb-6">{R.description_5}</p>
+            <div className="flex items-center gap-6 rounded-full border bg-white/70 p-1 text-xs font-semibold text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/70 dark:text-white">
+              <h3 className="mr-4 text-cyan-300 line-clamp-2 flex-grow pl-2 leading-none tracking-tight">Coursera</h3>
+              <a  href={R.link_5} className="flex-none rounded-full bg-blue-600 bg-cyan-300 hover:bg-cyan-600 p-2 text-black">View certification</a>
+            </div>
+</div>
+))}
 
 {profile.certifications.map((X,Y)=>(
 <div key={Y} className="p-6 rounded-lg bg-black border hover:border-white  relative border-neutral-200 dark:border-neutral-800  transition  duration-400 ease-in-out hover:-translate-y-1 hover:scale-100 transition-colors duration-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80">
@@ -54,8 +75,6 @@ className="flex flex-wrap gap-1 items-center bg-black border hover:border-white 
 </div>
 ))}
 
-
-
 {profile.certifications.map((R,M)=>(
 <div key={M} className="p-6  rounded-lg bg-black border hover:border-white  relative border-neutral-200 dark:border-neutral-800 transition  duration-400 ease-in-out hover:-translate-y-1 hover:scale-100 transition-colors duration-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80">
 <h3 className="text-2xl font-semibold text-gray-400">{R.title_3}</h3>
@@ -66,7 +85,6 @@ className="flex flex-wrap gap-1 items-center bg-black border hover:border-white 
             </div>
 </div>
 ))}
-
 
 {profile.awards.map((R,M)=>(
 <div key={M} className="p-6  rounded-lg bg-black border hover:border-white  relative border-neutral-200 dark:border-neutral-800  transition  duration-400 ease-in-out hover:-translate-y-1 hover:scale-100 transition-colors duration-300 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80">

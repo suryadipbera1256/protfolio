@@ -2,34 +2,31 @@
 
 import React from "react";
 
-export default function ShapChart() {
-  // Replace this with your actual imported JSON data later
-const shapData = [
-    { feature: "Temperature_roll_mean", importance: 2.477489948272705},
-    { feature: "Vibration_roll_mean", importance: 1.00245201587677},
-    { feature: "Pressure_roll_mean", importance: 1.00245201587677},
-    { feature: "Vibration", importance: 0.4880492687225342 },
-    { feature: "Pressure", importance: 0.32502293586730957 },
-    { feature: "Temperature", importance: 0.14670076966285706 },
-    ];
-const maxImportance = Math.max(...shapData.map(d => d.importance));
+export default function ShapChart({ title, description, data }) {
+  // Return nothing if no data is provided
+  if (!data || data.length === 0) return null;
 
-  // Find max value to scale the bars properly
-return (
-    <div className="bg-white/5 border border-white/10 p-6 rounded-2xl my-6">
-      <div className="space-y-4">
-        {shapData.map((item, index) => {
-          // Calculate percentage width for the bar
+  const maxImportance = Math.max(...data.map(d => d.importance));
+
+  return (
+    <div className="bg-white/5 border border-white/10 p-6 rounded-2xl w-full flex flex-col gap-4">
+      {/* Dynamic Headline and Description */}
+      <div>
+        {title && <h2 className="text-xl font-bold text-white">{title}</h2>}
+        {description && <p className="text-sm text-gray-400 mt-1">{description}</p>}
+      </div>
+
+      {/* Chart Bars */}
+      <div className="space-y-4 mt-2">
+        {data.map((item, index) => {
           const widthPercent = (item.importance / maxImportance) * 100;
 
           return (
             <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-              {/* Feature Name */}
               <div className="w-full sm:w-1/3 text-sm font-medium text-gray-300 truncate">
                 {item.feature}
               </div>
               
-              {/* Bar and Value */}
               <div className="w-full sm:w-2/3 flex items-center gap-3">
                 <div className="flex-1 h-3 bg-gray-800 rounded-full overflow-hidden">
                   <div 

@@ -93,8 +93,8 @@ Twitter
 </a>
 
 
-        </div>
-      </section>
-    </main>
-  );
+</div>
+</section>
+</main>
+);
 }

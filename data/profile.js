@@ -61,9 +61,32 @@ export const profile = {
       description_7: 'The Library Management System project is a web application built using Flask and Flask-SQLAlchemy that allows users to manage a collection of books. It provides features to add, update, delete, and search for books by title or author.',
       link_7: 'https://github.com/suryadipbera1256/Library-Management-System',
 
+      title_8: 'IOT Predictive Maintenance Engine (FactoryGuard AI)',
+      description_8: 'FactoryGuard AI is a machine learning solution designed to predict equipment failure before it occurs. Using high-fidelity sensor data from jet engines (NASA CMAPSS), the system identifies degradation patterns in real-time.',
+      link_8: 'https://github.com/suryadipbera1256/IOT-Predictive-Maintenance-Engine.git',
+
+      title_9: 'Personal Care LLM POC Chatbot',
+      description_9: 'Personal Care LLM-POC Chatbot designed to act as a domain expert in the personal care and grooming sector. Powered by a Large Language Model (LLM), the application helps users discover products and understand their benefits while maintaining strict operational guardrails.',
+      link_9: 'https://github.com/suryadipbera1256/PersonalCare-LLM-POC-Chatbot.git',
+
+      title_10: 'Predictive Modeling for Customer Tipping Behavior in NYC Taxis',
+      description_10: 'This project analyzes the New York City Taxi & Limousine Commission (TLC) dataset to understand and predict customer tipping behavior using machine learning. Using more than 50,000+ taxi trip records, the project identifies key factors influencing tips and builds high-performing classification models to assist taxi businesses with decision-making and improve customer service.',
+      link_10: 'https://github.com/suryadipbera1256/Predictive-Modeling-for-Customer-Tipping-Behavior-in-NYC-Taxis.git',
+
+      title_11: 'Employee Attrition Prediction for HR-Analytics',
+      description_11: 'An AI-powered employee attrition prediction system for HR analytics. The application uses machine learning algorithms to analyze employee data and predict the likelihood of attrition, helping organizations take proactive measures.',
+      link_11: 'https://github.com/suryadipbera1256/Employee-Attrition-Prediction-for-HR-Analytics---Salifort-Motors.git',
+
+      title_12: 'TrendScout E-Commerce Intelligence Collector',
+      description_12: 'An automated data extraction tool designed to gather real-time competitive intelligence from major e-commerce platforms (Myntra). It systematically navigates product listings to harvest critical data points-including names, pricing, link- transforming unstructured web content into structured datasets (CSV) for market analysis and trend forecasting.',
+      link_12: 'https://github.com/suryadipbera1256/TrendScout-E-Commerce-Intelligence-Collector.git',
+
+      title_13: 'The Conversion Catalyst: A/B Testing for E-Commerce Strategy Optimization',
+      description_13: 'This project simulates a real-world product experiment for an e-commerce platform facing high cart abandonment rates. The objective was to determine if streamlining the checkout process into a single "One-Click" action would drive higher sales volume without lowering the average spend per user.',
+      link_13: 'https://github.com/suryadipbera1256/The-Conversion-Catalyst-Optimizing-E-Commerce-Strategy-via-A-B-Testing.git',
+
     }
   ],
-
     publication: [
     {
       title_1: 'paper publication in drug classification',
@@ -88,7 +111,15 @@ export const profile = {
 
       title_3: 'Build a Full Website using WordPress Certification',
       description_3: 'Earned a certification in WordPress development, with a strong emphasis on building, customizing, and deploying responsive websites using the WordPress ecosystem.',
-      link_3: 'https://www.coursera.org/account/accomplishments/certificate/59K404BAQQO8'
+      link_3: 'https://www.coursera.org/account/accomplishments/certificate/59K404BAQQO8',
+
+      title_4: 'IBM Machine Learning',
+      description_4: 'Gemini said\nThis IBM Professional Certificate validates mastery in supervised, unsupervised, deep, and reinforcement learning, covering time series, survival analysis, and advanced algorithmic implementation.',
+      link_4: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/Q0CD1YHLAQXY',
+
+      title_5: 'Google Advanced Data Analytics',
+      description_5: 'This Google Advanced Data Analytics Certificate validates expertise in predictive modeling, statistics, and machine learning, preparing professionals to extract complex insights from datasets.',
+      link_5: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/JI61DR0VHAH1',
     }
   ],
 
@@ -100,7 +131,9 @@ export const profile = {
 
       title_2: 'Paper presentation in RISCC conference',
       description_2: 'Presented original research on drug classification at the RISCC Conference, showcasing analytical techniques in machine learning for biomedical data. Demonstrated the use of supervised learning models to categorize pharmaceutical.',
-      link_2: 'https://www.example.com/coding-contest'
+      link_2: 'https://www.example.com/coding-contest',
+
+
 
     }
   ],

@@ -6,7 +6,7 @@ import clsx from "clsx";
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hi, I’m Suryadip’s assistant. Ask me anything about his work, mindset, or achievements!" }
+    { role: "assistant", content: "Hi, I’m LiLi personal assistant of Suryadip. Ask me anything about his work, mindset, or achievements!" }
   ]);
   const [input, setInput] = useState("");
   const [showPopup, setShowPopup] = useState(true);
@@ -119,7 +119,7 @@ export default function ChatWidget() {
 
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg z-50"
+        className="fixed bottom-6 right-6 bg-orange-500 hover:bg-orange-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg z-50"
       >
         🤖
       </button>
