@@ -67,13 +67,13 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
   if (!title) return null;
 
   return (
-    <div className="group relative flex flex-col w-full mb-8 z-0 hover:z-30">
+    <div className="group relative flex flex-col w-full mb-10 z-0 hover:z-30">
       
       {/* FRONT LAYER: Main Box with Cyan Glow */}
-      <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 transition-all duration-500 ease-in-out p-8 rounded-3xl shadow-none hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col overflow-hidden group/card">
+      <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 transition-all duration-500 ease-in-out p-8 md:p-10 rounded-[2rem] shadow-none hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col overflow-hidden group/card">
         
         {/* MATCHING HOME PAGE TITLE TEXT */}
-        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight leading-snug text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">
+        <h3 className="text-3xl md:text-4xl font-bold tracking-tight leading-[1.15] text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">
           {title}
         </h3>
         
@@ -102,7 +102,7 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
         )}
 
         {/* MATCHING HOME PAGE DESCRIPTION TEXT */}
-        <p className="text-[#888888] text-base md:text-lg font-medium leading-relaxed mb-6 z-10">
+        <p className="text-lg md:text-xl text-[#888888] font-medium leading-relaxed mb-8 z-10">
           {description}
         </p>
 
@@ -139,19 +139,24 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
 export default function Publications() {
   return (
     <main className="relative z-0 min-h-screen overflow-x-hidden bg-[#050505] text-[#f4f4f5] pt-32 pb-16">
-      <section className="max-w-5xl mx-auto px-4">
+      <section className="max-w-[85rem] mx-auto px-6 md:px-12 lg:px-16">
         
-        {/* Page Title */}
-        <div className="mb-12 pl-2">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#f4f4f5] tracking-tight mb-4">
-            Publications
+        {/* MATCHING HOME PAGE HERO HEADERS */}
+        <div className="mb-16">
+          <div className="animate-fade-in-up mb-6">
+            <span className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+              Research & Articles
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-bold text-[#f4f4f5] leading-[1.15] tracking-tight mb-6">
+            Publications.
           </h1>
-          <p className="text-[#888888] font-medium text-lg">
-            My academic research, presentations, and published papers.
+          <p className="text-lg md:text-xl text-[#888888] font-medium leading-relaxed max-w-3xl">
+            My academic research, conference presentations, and published papers in the field of Artificial Intelligence and Medical Data.
           </p>
         </div>
 
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-4">
           {profile.publication.map((p, i) => (
             <ProjectCard 
               key={`8-${i}`} title={p.title_1} description={p.description_1} link={p.link_1} 
