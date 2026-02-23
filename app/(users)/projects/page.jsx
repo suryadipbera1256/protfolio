@@ -418,81 +418,88 @@ const abTestingImages = [
 
 // --- 2. REUSABLE, INTERACTIVE PROJECT CARD COMPONENT ---
 function ProjectCard({ title, description, link, outputImages, chartFlow, shapData }) {
-  const scrollContainerRef = useRef(null);
-  
-  // Duplicate the images array to create a long track that doesn't run out immediately
-  const displayImages = outputImages && outputImages.length > 0 
-    ? [...outputImages, ...outputImages] 
-    : [];
-
-  // Auto-sliding native scroll interval
-  useEffect(() => {
-    if (displayImages.length <= 1) return;
-    
-    const interval = setInterval(() => {
-      if (scrollContainerRef.current) {
-        const container = scrollContainerRef.current;
-        // Calculate the width of one image plus the gap (gap-4 is 16px)
-        const scrollAmount = container.children[0].offsetWidth + 16; 
-
-        // If we reach the end of the scroll, smoothly slide back to the start
-        if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
-          container.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          // Otherwise, scroll right by exactly one image
-          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
-      }
-    }, 3000); // Automates every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [displayImages.length]);
-
   if (!title) return null;
 
   return (
     <div className="group relative flex flex-col w-full mb-8 z-0 hover:z-30">
       
       {/* FRONT LAYER: Main Project Box */}
-      <div className="z-20 relative bg-black border hover:border-white border-neutral-200 dark:border-neutral-800 transition duration-400 ease-in-out p-8 rounded-xl shadow-xl shadow-cyan-500/20 dark:shadow-cyan-900/30 flex flex-col">
-        <h3 className="text-3xl font-bold text-gray-300 group-hover:text-cyan-300 transition-colors mb-6">{title}</h3>
+      <div className="z-20 relative bg-black border hover:border-white border-neutral-200 dark:border-neutral-800 transition duration-400 ease-in-out p-8 rounded-xl shadow-xl shadow-cyan-500/20 dark:shadow-cyan-900/30 flex flex-col overflow-hidden">
+        <h3 className="text-3xl font-bold text-gray-300 group-hover:text-cyan-300 transition-colors mb-6 z-10">{title}</h3>
         
-        {/* The Multi-Image Sliding Track */}
-        {displayImages.length > 0 && (
-          <div 
-            ref={scrollContainerRef}
-            // Hides the scrollbar while keeping the functionality
-            className="flex overflow-x-auto snap-x snap-mandatory gap-4 mb-8 pb-2 w-full h-[35vh] min-h-[250px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-          >
-            {displayImages.map((img, idx) => (
-              <div 
-                key={idx} 
-                // Responsive sizing: 1 image on mobile (85%), 2 on tablet (48%), 3 on desktop (31.5%)
-                className="shrink-0 snap-center w-[85%] sm:w-[48%] md:w-[31.5%] h-full relative rounded-lg overflow-hidden border border-white/10 bg-neutral-900"
-              >
-                <Image 
-                  src={img} 
-                  alt={`${title} preview ${idx}`} 
-                  fill 
-                  className="object-cover object-center" 
-                  priority={idx < 3} 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+        {/* The Continuous Pure CSS Marquee Image Track */}
+        {outputImages && outputImages.length > 0 && (
+          <div className="w-full overflow-hidden mb-8 pb-2 rounded-xl relative z-10">
+            <div className="flex w-max animate-carousel hover:[animation-play-state:paused] gap-4">
+              
+              {/* SET 1: First batch of images */}
+              <div className="flex gap-4 pr-4">
+                {outputImages.map((img, idx) => (
+                  <div 
+                    key={`set1-${idx}`} 
+                    className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[250px] relative rounded-lg overflow-hidden border border-white/10 bg-neutral-900"
+                  >
+                    <Image 
+                      src={img} 
+                      alt={`${title} preview ${idx}`} 
+                      fill 
+                      className="object-cover object-center" 
+                      priority={idx < 3} 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                  </div>
+                ))}
               </div>
-            ))}
+
+              {/* SET 2: Duplicated batch. This creates the seamless looping illusion! */}
+              <div className="flex gap-4 pr-4">
+                {outputImages.map((img, idx) => (
+                  <div 
+                    key={`set2-${idx}`} 
+                    className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[250px] relative rounded-lg overflow-hidden border border-white/10 bg-neutral-900"
+                  >
+                    <Image 
+                      src={img} 
+                      alt={`${title} duplicate preview ${idx}`} 
+                      fill 
+                      className="object-cover object-center" 
+                      priority={false} 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                  </div>
+                ))}
+              </div>
+
+            </div>
           </div>
         )}
 
-        <p className="text-gray-400 text-lg leading-relaxed mb-6">{description}</p>
+        <p className="text-gray-400 text-lg leading-relaxed mb-6 z-10">{description}</p>
 
-        <div className="flex items-center gap-2 mt-auto">
-          <a href={link} target="_blank" rel="noreferrer" className="text-cyan-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-2 font-semibold text-lg group/link">
-            View repo / demo
-            <svg className="w-5 h-5 transition-transform group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        {/* --- UPDATED MINIMALIST BUTTON --- */}
+        <a 
+          href={link} 
+          target="_blank" 
+          rel="noreferrer" 
+          className="group/link flex items-center gap-4 mt-auto pt-6 border-t border-[#1a1a1a] z-10"
+        >
+          {/* Circular Icon Button */}
+          <div className="w-10 h-10 rounded-full border border-[#262626] flex items-center justify-center bg-[#050505] group-hover/link:bg-[#f4f4f5] group-hover/link:border-[#f4f4f5] transition-all duration-300">
+            <svg 
+              className="w-4 h-4 text-[#888888] group-hover/link:text-black transition-colors" 
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
             </svg>
-          </a>
-        </div>
+          </div>
+          {/* Text that lights up on hover */}
+          <span className="text-[#888888] group-hover/link:text-[#f4f4f5] text-sm font-medium transition-colors tracking-wide">
+            View repo / demo
+          </span>
+        </a>
+        {/* --------------------------------- */}
+
       </div>
 
       {/* BACK LAYER: Slide-down Charts */}
