@@ -31,15 +31,18 @@ export default function Mermaid({ title, description, chart }) {
   }, [chart]);
 
   return (
-    <div className="bg-white/5 border border-white/10 p-6 rounded-2xl w-full flex flex-col gap-4">
+    // Updated container background to match the premium dark theme
+    <div className="bg-[#0a0a0a] border border-[#1f1f1f] p-6 md:p-8 rounded-3xl w-full flex flex-col gap-4">
       <div>
-        {title && <h2 className="text-xl font-bold text-white">{title}</h2>}
-        {description && <p className="text-sm text-gray-400 mt-1">{description}</p>}
+        {/* MATCHING HOME PAGE TITLE TEXT */}
+        {title && <h2 className="text-xl md:text-2xl font-semibold text-[#f4f4f5] tracking-tight">{title}</h2>}
+        {/* MATCHING HOME PAGE DESCRIPTION TEXT */}
+        {description && <p className="text-sm md:text-base font-medium text-[#888888] mt-2">{description}</p>}
       </div>
       
       {/* Safely inject the rendered SVG */}
       <div 
-        className="flex justify-center w-full overflow-x-auto mt-2"
+        className="flex justify-center w-full overflow-x-auto mt-4 [&>svg]:max-w-full"
         dangerouslySetInnerHTML={{ __html: svgContent }}
       />
     </div>

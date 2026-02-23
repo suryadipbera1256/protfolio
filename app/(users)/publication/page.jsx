@@ -71,7 +71,11 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
       
       {/* FRONT LAYER: Main Box with Cyan Glow */}
       <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 transition-all duration-500 ease-in-out p-8 rounded-3xl shadow-none hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col overflow-hidden group/card">
-        <h3 className="text-3xl font-bold text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">{title}</h3>
+        
+        {/* MATCHING HOME PAGE TITLE TEXT */}
+        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight leading-snug text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">
+          {title}
+        </h3>
         
         {/* Continuous Pure CSS Marquee Track */}
         {outputImages && outputImages.length > 0 && (
@@ -97,7 +101,10 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
           </div>
         )}
 
-        <p className="text-[#a1a1aa] text-lg leading-relaxed mb-6 z-10">{description}</p>
+        {/* MATCHING HOME PAGE DESCRIPTION TEXT */}
+        <p className="text-[#888888] text-base md:text-lg font-medium leading-relaxed mb-6 z-10">
+          {description}
+        </p>
 
         {/* View Button with Arrow Animation */}
         <a href={link} target="_blank" rel="noreferrer" className="group/link flex items-center gap-4 mt-auto pt-6 border-t border-[#1a1a1a] z-10 w-max">
@@ -131,17 +138,14 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
 // --- 3. MAIN PAGE STRUCTURE ---
 export default function Publications() {
   return (
-    // Updated background to perfectly match the Home page (#050505)
     <main className="relative z-0 min-h-screen overflow-x-hidden bg-[#050505] text-[#f4f4f5] pt-32 pb-16">
       <section className="max-w-5xl mx-auto px-4">
         
         {/* Page Title */}
         <div className="mb-12 pl-2">
-          <div className="mb-6">
-          <h2 className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#f4f4f5] tracking-tight mb-4">
             Publications
-          </h2>
-        </div>
+          </h1>
           <p className="text-[#888888] font-medium text-lg">
             My academic research, presentations, and published papers.
           </p>

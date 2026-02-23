@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
 import { profile } from '../../../data/profile';
 import Image from 'next/image';
 import Mermaid from '../../../components/Mermaid';
@@ -51,14 +50,8 @@ const factoryGuardShapData = [
   { feature: "Pressure", importance: 0.32 },
 ];
 const factoryGuardImages = [
-    "/PIC/iot1.jpg",
-    "/PIC/iot2.jpg",
-    "/PIC/iot3.jpg",
-    "/PIC/iot4.jpg",
-    "/PIC/iot5.jpg",
-    "/PIC/iot6.jpg",
-    "/PIC/iot7.jpg",
-    "/PIC/iot8.jpg",
+    "/PIC/iot1.jpg", "/PIC/iot2.jpg", "/PIC/iot3.jpg", "/PIC/iot4.jpg",
+    "/PIC/iot5.jpg", "/PIC/iot6.jpg", "/PIC/iot7.jpg", "/PIC/iot8.jpg",
 ];
 
 const lungCancerFlow = `flowchart LR
@@ -111,12 +104,8 @@ const lungCancerShapData = [
   { feature: "Pleural Retraction Zone", importance: 0.64 },
 ];
 const lungCancerImages = [
-    "/PIC/lcd1.jpg",
-    "/PIC/lcd2.jpg",
-    "/PIC/lcd3.jpg",
-    "/PIC/lcd4.jpg",
-    "/PIC/lcd5.jpg",
-    "/PIC/lcd6.jpg",
+    "/PIC/lcd1.jpg", "/PIC/lcd2.jpg", "/PIC/lcd3.jpg", 
+    "/PIC/lcd4.jpg", "/PIC/lcd5.jpg", "/PIC/lcd6.jpg",
 ];
 
 const trendScoutFlow = `flowchart LR
@@ -150,11 +139,7 @@ const trendScoutFlow = `flowchart LR
   Target --> ScrapingEngine --> Parser --> Output
 `;
 const trendScoutImages = [
-    "/PIC/ts1.jpg",
-    "/PIC/ts2.jpg",
-    "/PIC/ts3.jpg",
-    "/PIC/ts4.jpg",
-    "/PIC/ts5.jpg",
+    "/PIC/ts1.jpg", "/PIC/ts2.jpg", "/PIC/ts3.jpg", "/PIC/ts4.jpg", "/PIC/ts5.jpg",
 ];
 
 const liliAiFlow = `flowchart LR
@@ -186,27 +171,16 @@ const liliAiFlow = `flowchart LR
   end
   class DB db
 
-  %% Execution Flow
   UI --> Guard
   Guard -- Pass --> Prompt
   Prompt --> Llama
   Llama --> UI
-
-  %% Guardrail Trigger
-  Guard -- Triggered --> Handoff[Support Handoff<br/>Response]
+  Guard -- Triggered --> Handoff[Support Handoff]
   Handoff --> UI
-
-  %% Logging Flow
   UI -. Log Session .-> PG
-
-  class Handoff alert
 `;
 const liliAiImages = [
-    "/PIC/la1.jpg",
-    "/PIC/la2.jpg",
-    "/PIC/la3.jpg",
-    "/PIC/la4.jpg",
-    "/PIC/la5.jpg",
+    "/PIC/la1.jpg", "/PIC/la2.jpg", "/PIC/la3.jpg", "/PIC/la4.jpg", "/PIC/la5.jpg",
 ];
 
 const taxiTipFlow = `flowchart LR
@@ -244,11 +218,7 @@ const taxiTipFlow = `flowchart LR
   Input --> FeatureEngineering --> Modeling --> Evaluation
   Evaluation -- Yes --> Generous[Generous Tip ]
   Evaluation -- No --> Standard[Standard Tip ]
-
-  class Generous safe
-  class Standard alert
 `;
-
 const taxiTipShapData = [
   { feature: "fare_amount", importance: 4.85 },
   { feature: "trip_duration", importance: 3.12 },
@@ -257,11 +227,7 @@ const taxiTipShapData = [
   { feature: "rush_hour_flag", importance: 0.72 },
 ];
 const taxiTipImages = [
-    "/PIC/tt1.jpg",
-    "/PIC/tt2.jpg",
-    "/PIC/tt3.jpg",
-    "/PIC/tt4.jpg",
-    "/PIC/tt5.jpg",
+    "/PIC/tt1.jpg", "/PIC/tt2.jpg", "/PIC/tt3.jpg", "/PIC/tt4.jpg", "/PIC/tt5.jpg",
 ];
 
 const hrAttritionFlow = `flowchart LR
@@ -295,8 +261,6 @@ const hrAttritionFlow = `flowchart LR
   Input --> FeatureEngineering --> Modeling --> Evaluation
   Evaluation -- High --> Leave[Likely to Leave ]
   Evaluation -- Low --> Stay[Likely to Stay ]
-  class Leave alert
-  class Stay safe
 `;
 const hrAttritionShapData = [
   { feature: "satisfaction_level", importance: 0.35 },
@@ -306,11 +270,7 @@ const hrAttritionShapData = [
   { feature: "last_evaluation", importance: 0.08 },
 ];
 const hrAttritionImages = [
-    "/PIC/hr1.jpg",
-    "/PIC/hr2.jpg",
-    "/PIC/hr3.jpg",
-    "/PIC/hr4.jpg",
-    "/PIC/hr5.jpg"
+    "/PIC/hr1.jpg", "/PIC/hr2.jpg", "/PIC/hr3.jpg", "/PIC/hr4.jpg", "/PIC/hr5.jpg"
 ];
 
 const seizureRecognitionFlow = `flowchart LR
@@ -348,9 +308,6 @@ const seizureRecognitionFlow = `flowchart LR
   Input --> Modeling --> XAI --> Output
   Output -- Yes --> Alert[Seizure Activity ]
   Output -- No --> Safe[Normal Activity ]
-
-  class Alert alert
-  class Safe safe
 `;
 const seizureShapData = [
   { feature: "EEG_Signal_Variance", importance: 4.12 },
@@ -360,12 +317,8 @@ const seizureShapData = [
   { feature: "Signal_Entropy", importance: 0.98 },
 ];
 const seizureRecognitionImages = [
-    "/PIC/seizure_step0.jpg",
-    "/PIC/seizure_step1.jpg",
-    "/PIC/seizure_step2.jpg",
-    "/PIC/seizure_step3.jpg",
-    "/PIC/seizure_step4.jpg",
-    "/PIC/seizure_step5.jpg"
+    "/PIC/seizure_step0.jpg", "/PIC/seizure_step1.jpg", "/PIC/seizure_step2.jpg",
+    "/PIC/seizure_step3.jpg", "/PIC/seizure_step4.jpg", "/PIC/seizure_step5.jpg"
 ];
 
 const abTestingFlow = `flowchart LR
@@ -403,20 +356,13 @@ const abTestingFlow = `flowchart LR
   Input --> Processing --> Analysis --> Output
   Output -- Yes --> Winner[Deploy New Feature 🚀]
   Output -- No --> Keep[Keep Old Version 🛑]
-
-  class Winner safe
-  class Keep alert
 `;
 const abTestingImages = [
-    "/PIC/abtest_step1.jpg",
-    "/PIC/abtest_step2.jpg",
-    "/PIC/abtest_step3.jpg",
-    "/PIC/abtest_step4.jpg",
-    "/PIC/abtest_step5.jpg"
+    "/PIC/abtest_step1.jpg", "/PIC/abtest_step2.jpg", "/PIC/abtest_step3.jpg",
+    "/PIC/abtest_step4.jpg", "/PIC/abtest_step5.jpg"
 ];
 
 
-// --- 2. REUSABLE, INTERACTIVE PROJECT CARD COMPONENT ---
 // --- 2. REUSABLE, INTERACTIVE PROJECT CARD COMPONENT ---
 function ProjectCard({ title, description, link, outputImages, chartFlow, shapData }) {
   if (!title) return null;
@@ -426,7 +372,11 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
       
       {/* FRONT LAYER: Main Project Box with Cyan Glow */}
       <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 transition-all duration-500 ease-in-out p-8 rounded-3xl shadow-none hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col overflow-hidden group/card">
-        <h3 className="text-3xl font-bold text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">{title}</h3>
+        
+        {/* MATCHING HOME PAGE TITLE TEXT */}
+        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight leading-snug text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">
+          {title}
+        </h3>
         
         {/* Continuous Pure CSS Marquee Image Track */}
         {outputImages && outputImages.length > 0 && (
@@ -452,7 +402,10 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
           </div>
         )}
 
-        <p className="text-[#a1a1aa] text-lg leading-relaxed mb-6 z-10">{description}</p>
+        {/* MATCHING HOME PAGE DESCRIPTION TEXT */}
+        <p className="text-[#888888] text-base md:text-lg font-medium leading-relaxed mb-6 z-10">
+          {description}
+        </p>
 
         {/* View Repo Button with Cyan Glow & Diagonal Arrow */}
         <a href={link} target="_blank" rel="noreferrer" className="group/link flex items-center gap-4 mt-auto pt-6 border-t border-[#1a1a1a] z-10 w-max">
@@ -486,21 +439,19 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
 // --- 3. MAIN PAGE STRUCTURE ---
 export default function Projects() {
   return (
-    // Updated background to perfectly match the Home page (#050505)
     <main className="relative z-0 min-h-screen overflow-x-hidden bg-[#050505] text-[#f4f4f5] pt-32 pb-16">
       <section className="max-w-5xl mx-auto px-4">
         
         {/* Page Title */}
         <div className="mb-12 pl-2">
-          <div className="mb-6">
-          <h2 className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-              Featured Projects
-          </h2>
-        </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-[#f4f4f5] tracking-tight mb-4">
+            Featured Projects
+          </h1>
           <p className="text-[#888888] font-medium text-lg">
             A showcase of my work in AI, Machine Learning, and Data Science.
           </p>
         </div>
+
         <div className="flex flex-col gap-y-2">
           {profile.projects.map((p, i) => (
             <ProjectCard key={`8-${i}`} title={p.title_8} description={p.description_8} link={p.link_8} outputImages={factoryGuardImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData} />
