@@ -7,7 +7,7 @@ import Navbar from "../../../components/Navbar";
 
 export default function Contact() {
   // Geolocation State
-  const [mapCenter, setMapCenter] = useState({ lat: 12.9304, lng: 77.6784 });
+  const [mapCenter, setMapCenter] = useState({ lat: 12.9304, lng: 77.6784 }); // Default to Bellandur
   const [userLocation, setUserLocation] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
 

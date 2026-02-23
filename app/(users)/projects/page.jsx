@@ -1,9 +1,49 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { profile } from '../../../data/profile';
 import Image from 'next/image';
 import Mermaid from '../../../components/Mermaid';
 import ShapChart from '../../../components/ShapChart';
+
+// --- CUSTOM ZERO-LAYOUT-SHIFT TYPEWRITER EFFECT ---
+function Typewriter({ text, delay = 0, speed = 30, showCursor = false }) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    let i = 0;
+    setDisplayedText(""); // Instantly reset text when category changes
+    
+    const timeout = setTimeout(() => {
+      setIsTyping(true);
+      const interval = setInterval(() => {
+        setDisplayedText(text.substring(0, i + 1));
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+          setIsTyping(false);
+        }
+      }, speed);
+      return () => clearInterval(interval);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [text, delay, speed]);
+
+  return (
+    <span className="relative inline-block w-full text-left">
+      {/* Invisible text preserves exact layout space so the page never jumps! */}
+      <span className="invisible">{text}</span>
+      {/* Visible typing text overlaid exactly on top */}
+      <span className="absolute top-0 left-0 w-full h-full text-inherit">
+        {displayedText}
+        {showCursor && isTyping && (
+          <span className="border-r-2 border-cyan-400 animate-pulse ml-[2px] opacity-80"></span>
+        )}
+      </span>
+    </span>
+  );
+}
 
 // --- 1. DATA DEFINITIONS ---
 const factoryGuardFlow = `flowchart LR
@@ -370,15 +410,12 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
   return (
     <div className="group relative flex flex-col w-full mb-10 z-0 hover:z-30">
       
-      {/* FRONT LAYER: Main Project Box with Cyan Glow */}
       <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 transition-all duration-500 ease-in-out p-8 md:p-10 rounded-[2rem] shadow-none hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col overflow-hidden group/card">
         
-        {/* MATCHING HOME PAGE TITLE TEXT */}
         <h3 className="text-3xl md:text-4xl font-bold tracking-tight leading-[1.15] text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">
           {title}
         </h3>
         
-        {/* Continuous Pure CSS Marquee Image Track */}
         {outputImages && outputImages.length > 0 && (
           <div className="w-full overflow-hidden mb-8 pb-2 rounded-xl relative z-10">
             <div className="flex w-max animate-carousel hover:[animation-play-state:paused] gap-4">
@@ -402,12 +439,10 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
           </div>
         )}
 
-        {/* MATCHING HOME PAGE DESCRIPTION TEXT */}
         <p className="text-lg md:text-xl text-[#888888] font-medium leading-relaxed mb-8 z-10">
           {description}
         </p>
 
-        {/* View Repo Button with Cyan Glow & Diagonal Arrow */}
         <a href={link} target="_blank" rel="noreferrer" className="group/link flex items-center gap-4 mt-auto pt-6 border-t border-[#1a1a1a] z-10 w-max">
           <div className="w-10 h-10 rounded-full border border-[#262626] flex items-center justify-center bg-[#050505] group-hover/link:bg-cyan-400/10 group-hover/link:border-cyan-400 transition-all duration-300 group-hover/link:shadow-[0_0_10px_rgba(6,182,212,0.3)]">
             <svg className="w-4 h-4 text-[#888888] group-hover/link:text-cyan-400 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -421,7 +456,6 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
         </a>
       </div>
 
-      {/* BACK LAYER: Slide-down Charts */}
       {(chartFlow || shapData) && (
         <div className="z-10 relative bg-[#050505]/95 backdrop-blur-sm rounded-b-3xl border border-t-0 border-[#1f1f1f] px-6 grid grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 -translate-y-16 group-hover:-translate-y-2 transition-all duration-700 ease-in-out origin-top">
           <div className="overflow-hidden">
@@ -436,54 +470,144 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
   );
 }
 
-// --- 3. MAIN PAGE STRUCTURE ---
+// --- 3. MAIN PAGE STRUCTURE WITH CATEGORY SIDEBAR ---
 export default function Projects() {
-  return (
-    <main className="relative z-0 min-h-screen overflow-x-hidden bg-[#050505] text-[#f4f4f5] pt-32 pb-16">
-      <section className="max-w-[85rem] mx-auto px-6 md:px-12 lg:px-16">
-        
-        {/* MATCHING HOME PAGE HERO HEADERS */}
-        <div className="mb-16">
-          <div className="animate-fade-in-up mb-6">
-            <span className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-              My Portfolio
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-bold text-[#f4f4f5] leading-[1.15] tracking-tight mb-6">
-            Featured Projects.
-          </h1>
-          <p className="text-lg md:text-xl text-[#888888] font-medium leading-relaxed max-w-3xl">
-            A curated showcase of my technical work in AI, Machine Learning, Data Science, and full-stack development.
-          </p>
-        </div>
+  const [activeCat, setActiveCat] = useState('Data Science');
 
-        <div className="flex flex-col gap-y-4">
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`8-${i}`} title={p.title_8} description={p.description_8} link={p.link_8} outputImages={factoryGuardImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData} />
-          ))}
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`1-${i}`} title={p.title_1} description={p.description_1} link={p.link_1} outputImages={lungCancerImages} chartFlow={lungCancerFlow } shapData={lungCancerShapData} />
-          ))}
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`1-${i}`} title={p.title_9} description={p.description_9} link={p.link_9} outputImages={liliAiImages} chartFlow={liliAiFlow } />
-          ))}
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`1-${i}`} title={p.title_12} description={p.description_12} link={p.link_12} outputImages={trendScoutImages} chartFlow={trendScoutFlow } />
-          ))}
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`1-${i}`} title={p.title_10} description={p.description_10} link={p.link_10} outputImages={taxiTipImages} chartFlow={taxiTipFlow } shapData={taxiTipShapData} />
-          ))}
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`1-${i}`} title={p.title_11} description={p.description_11} link={p.link_11} outputImages={hrAttritionImages} chartFlow={hrAttritionFlow } shapData={hrAttritionShapData} />
-          ))}
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`3-${i}`} title={p.title_3} description={p.description_3} link={p.link_3} outputImages={seizureRecognitionImages} chartFlow={seizureRecognitionFlow} shapData={seizureShapData} />
-          ))}
-          {profile.projects.map((p, i) => (
-            <ProjectCard key={`4-${i}`} title={p.title_13} description={p.description_13} link={p.link_13} outputImages={abTestingImages} chartFlow={abTestingFlow} />
-          ))}
+  const CATEGORIES = [
+    {
+      id: 'Data Science',
+      title: 'Data Science',
+      desc: 'Exploring hidden patterns, statistical analysis, and predictive modeling from structured datasets.'
+    },
+    {
+      id: 'Artificial Intelligence',
+      title: 'Artificial Intelligence',
+      desc: 'Advanced deep learning, computer vision, and neural networks solving complex real-world problems.'
+    },
+    {
+      id: 'Web Scraping',
+      title: 'Web Scraping',
+      desc: 'Automated data extraction, parsing, and intelligence gathering from dynamic web environments.'
+    },
+    {
+      id: 'Automation',
+      title: 'Automation',
+      desc: 'Streamlining workflows, building intelligent agents, and automating complex business processes.'
+    }
+  ];
+
+  const allProjects = profile.projects.flatMap(p => [
+    { id: 'factory', cat: 'Artificial Intelligence', title: p.title_8, desc: p.description_8, link: p.link_8, imgs: factoryGuardImages, flow: factoryGuardFlow, shap: factoryGuardShapData },
+    { id: 'lung', cat: 'Artificial Intelligence', title: p.title_1, desc: p.description_1, link: p.link_1, imgs: lungCancerImages, flow: lungCancerFlow, shap: lungCancerShapData },
+    { id: 'lili', cat: 'Automation', title: p.title_9, desc: p.description_9, link: p.link_9, imgs: liliAiImages, flow: liliAiFlow, shap: null },
+    { id: 'trend', cat: 'Web Scraping', title: p.title_12, desc: p.description_12, link: p.link_12, imgs: trendScoutImages, flow: trendScoutFlow, shap: null },
+    { id: 'taxi', cat: 'Data Science', title: p.title_10, desc: p.description_10, link: p.link_10, imgs: taxiTipImages, flow: taxiTipFlow, shap: taxiTipShapData },
+    { id: 'hr', cat: 'Data Science', title: p.title_11, desc: p.description_11, link: p.link_11, imgs: hrAttritionImages, flow: hrAttritionFlow, shap: hrAttritionShapData },
+    { id: 'seizure', cat: 'Data Science', title: p.title_3, desc: p.description_3, link: p.link_3, imgs: seizureRecognitionImages, flow: seizureRecognitionFlow, shap: seizureShapData },
+    { id: 'abtest', cat: 'Data Science', title: p.title_13, desc: p.description_13, link: p.link_13, imgs: abTestingImages, flow: abTestingFlow, shap: null }
+  ]);
+
+  const filteredProjects = allProjects.filter(project => project.cat === activeCat);
+  const activeCategoryData = CATEGORIES.find(c => c.id === activeCat);
+
+  return (
+    <main className="relative z-0 min-h-screen bg-[#050505] text-[#f4f4f5]">
+      <div className="max-w-[85rem] mx-auto px-6 md:px-12 lg:px-16 pt-32 pb-32">
+        
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 relative items-start">
+          
+          {/* =========================================
+              LEFT SIDEBAR
+          ========================================= */}
+          <aside className="w-full lg:w-64 flex-shrink-0 lg:sticky lg:top-32 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 z-20 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCat(cat.id)}
+                className={`group flex items-center justify-between px-5 py-4 text-left transition-all duration-500 rounded-2xl relative overflow-hidden flex-shrink-0 ${
+                  activeCat === cat.id ? 'text-cyan-400 font-bold' : 'text-[#888888] font-medium hover:text-[#f4f4f5]'
+                }`}
+              >
+                {activeCat === cat.id && (
+                  <div className="absolute inset-0 bg-cyan-400/5 border border-cyan-400/20 rounded-2xl shadow-[inset_0_0_15px_rgba(6,182,212,0.1)]"></div>
+                )}
+                
+                <span className={`relative z-10 transition-transform duration-300 whitespace-nowrap ${
+                  activeCat === cat.id ? 'translate-x-2' : 'group-hover:translate-x-2'
+                }`}>
+                  {cat.title}
+                </span>
+
+                <svg className={`hidden lg:block w-4 h-4 relative z-10 transition-all duration-300 ${
+                  activeCat === cat.id ? 'opacity-100 translate-x-0 text-cyan-400' : 'opacity-0 -translate-x-4'
+                }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            ))}
+          </aside>
+
+          {/* =========================================
+              RIGHT CONTENT AREA
+          ========================================= */}
+          <div className="flex-1 w-full min-w-0">
+            <div key={activeCat} className="animate-fade-in-up">
+              
+              {/* --- UNIFIED & FAST TYPING HEADER --- */}
+              <div className="mb-10 border-b border-[#1f1f1f] pb-6">
+                
+                {/* 1. Fast Pill-Style Headline (Matches the Home Page exactly) */}
+                <div className="mb-5">
+                  <h1 className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-sm md:text-base font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+                    <Typewriter 
+                      text={`${activeCategoryData.title} Projects`} 
+                      delay={100} 
+                      speed={25} // Very fast typing speed
+                      showCursor={true} 
+                    />
+                  </h1>
+                </div>
+                
+                {/* 2. Fast Description Paragraph (Starts precisely after the title finishes) */}
+                <p className="text-base md:text-lg text-[#888888] font-medium leading-relaxed max-w-3xl min-h-[3rem]">
+                  <Typewriter 
+                    text={activeCategoryData.desc} 
+                    // Calculation: wait 100ms + (title length * 25ms) + 150ms buffer
+                    delay={100 + ((activeCategoryData.title.length + 9) * 25) + 150} 
+                    speed={15} // Extremely fast typing speed for the paragraph
+                    showCursor={false} 
+                  />
+                </p>
+
+              </div>
+
+              {/* Rendered Projects */}
+              <div className="flex flex-col gap-y-4">
+                {filteredProjects.map((project) => (
+                  <ProjectCard 
+                    key={project.id} 
+                    title={project.title} 
+                    description={project.desc} 
+                    link={project.link} 
+                    outputImages={project.imgs} 
+                    chartFlow={project.flow} 
+                    shapData={project.shap} 
+                  />
+                ))}
+                
+                {filteredProjects.length === 0 && (
+                  <div className="w-full py-20 flex flex-col items-center justify-center border border-dashed border-[#262626] rounded-3xl bg-[#0a0a0a]">
+                     <p className="text-[#888888] font-medium">New projects coming soon...</p>
+                  </div>
+                )}
+              </div>
+
+            </div>
+          </div>
+
         </div>
-      </section>
+      </div>
     </main>
   );
 }
