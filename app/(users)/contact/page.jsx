@@ -1,15 +1,95 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { profile } from "../../../data/profile";
 import Map from "../../../components/Map";
 import Navbar from "../../../components/Navbar";
 
+// --- CUSTOM ZERO-LAYOUT-SHIFT TYPEWRITER EFFECT (STRICT-MODE SAFE FIX) ---
+function Typewriter({ text, delay = 0, speed = 15, showCursor = false, start = true }) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    // Wait until triggered
+    if (!start) return;
+    
+    let i = 0;
+    let interval;
+    
+    // Start typing after delay
+    const timeout = setTimeout(() => {
+      setIsTyping(true);
+      interval = setInterval(() => {
+        setDisplayedText(text.substring(0, i + 1));
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+          setIsTyping(false);
+        }
+      }, speed);
+    }, delay);
+
+    // This completely fixes the Next.js Strict Mode "invisible text" bug
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
+  }, [text, delay, speed, start]);
+
+  return (
+    <span className="relative inline-block">
+      {/* Invisible text preserves layout so the page never jumps */}
+      <span className="invisible whitespace-pre-wrap">{text}</span>
+      {/* Visible typing text overlaid exactly on top */}
+      <span className="absolute top-0 left-0 w-full h-full text-inherit whitespace-pre-wrap">
+        {displayedText}
+        {showCursor && isTyping && (
+          <span className="border-r-2 border-cyan-400 animate-pulse ml-[2px] opacity-80"></span>
+        )}
+      </span>
+    </span>
+  );
+}
+
 export default function Contact() {
   // Geolocation State
-  const [mapCenter, setMapCenter] = useState({ lat: 12.9304, lng: 77.6784 }); // Default to Bellandur
+  const [mapCenter, setMapCenter] = useState({ lat: 12.9304, lng: 77.6784 });
   const [userLocation, setUserLocation] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
+
+  // Animation States (Animate Once & Lock)
+  const [visible, setVisible] = useState({
+    header: false,
+    cards: false,
+    socials: false,
+    map: false
+  });
+
+  // Setup Intersection Observer for Scroll Animations
+  useEffect(() => {
+    // Instantly trigger header animation on load so it never disappears!
+    setVisible(prev => ({ ...prev, header: true }));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(prev => ({ ...prev, [entry.target.id]: true }));
+          }
+        });
+      },
+      { rootMargin: '0px 0px -50px 0px' }
+    );
+
+    // Only observe the items below the fold
+    ['cards', 'socials', 'map'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Triggered when user clicks "Find My Location"
   const handleGetLocation = () => {
@@ -40,18 +120,18 @@ export default function Contact() {
 
       <section className="max-w-[85rem] mx-auto px-6 md:px-12 lg:px-16">
         
-        {/* --- HEADER --- */}
-        <div className="mb-16 max-w-2xl">
-          <div className="animate-fade-in-up mb-6">
+        {/* --- HEADER (Typewriter Animations) --- */}
+        <div id="header" className="mb-16 max-w-2xl">
+          <div className="mb-6">
             <span className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-              Let's Connect
+              <Typewriter text="Let's Connect" delay={50} speed={25} showCursor={true} start={visible.header} />
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-bold text-[#f4f4f5] leading-[1.15] tracking-tight mb-6">
-            Get in Touch.
+            <Typewriter text="Get in Touch." delay={400} speed={30} showCursor={true} start={visible.header} />
           </h1>
           <p className="text-lg md:text-xl text-[#888888] font-medium leading-relaxed">
-            Whether you have a question, a project proposition, or just want to say hi, feel free to drop a message!
+            <Typewriter text="Whether you have a question, a project proposition, or just want to say hi, feel free to drop a message!" delay={900} speed={15} start={visible.header} />
           </p>
         </div>
 
@@ -61,11 +141,11 @@ export default function Contact() {
           {/* LEFT COLUMN: Contact Cards & Socials (Spans 5 columns) */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
-            {/* Direct Contact Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+            {/* Direct Contact Cards (Fade In Up) */}
+            <div id="cards" className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 transition-all duration-1000 ease-out transform ${visible.cards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '100ms' }}>
               
               {/* Call Me Card */}
-              <a href={`tel:${profile.phone}`} className="group relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+              <a href={`tel:${profile.phone}`} className="group relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
                 <span className="absolute top-5 right-5 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">2</span>
                 <div className="w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover:bg-cyan-400/10 group-hover:border-cyan-400 flex items-center justify-center text-[#888888] group-hover:text-cyan-400 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.97825 3.99999c-.3729 0-.74128.08169-1.07926.23934-.32394.15109-.61243.36845-.84696.63786-1.81892 1.82189-2.35302 3.87423-1.89899 5.93671.43916 1.9949 1.77747 3.8929 3.45642 5.572 1.67897 1.6791 3.57614 3.0176 5.57034 3.4591 2.0612.4563 4.1141-.0726 5.9396-1.8853.2705-.2348.4888-.524.6405-.8489.1581-.3387.2401-.7081.2401-1.0819 0-.3739-.082-.7432-.2401-1.0819-.1516-.3247-.3696-.6137-.6398-.8483l-1.2098-1.2106c-.5043-.5041-1.1879-.7872-1.9007-.7872-.7128 0-1.3968.2835-1.9011.7876l-.6178.6181c-.1512.1513-.3563.2363-.5701.2363-.2138 0-.4189-.085-.5701-.2363l-1.85336-1.8545c-.15117-.1513-.23609-.3565-.23609-.5704 0-.214.08493-.4192.23613-.5705l.61812-.61851c.5037-.50461.7867-1.18868.7867-1.90191s-.2833-1.39767-.7871-1.90228L8.90499 4.8778c-.23462-.26969-.5233-.48727-.84749-.63847-.33798-.15765-.70636-.23934-1.07925-.23934Z"/><path fillRule="evenodd" d="M18.0299 8.98132c0 .55229-.4477 1-1 .99999l-3.03-.00002c-.5522 0-1-.44772-1-1V5.99995c0-.55229.4478-1 1-1 .5523 0 1 .44771 1 1v.58112l3.3184-3.29111c.3921-.38892 1.0253-.38631 1.4142.00582.3889.39213.3863 1.02529-.0058 1.4142l-3.2984 3.27133h.6016c.5523.00001 1 .44773 1 1.00001Z" clipRule="evenodd"/></svg>
@@ -77,7 +157,7 @@ export default function Contact() {
               </a>
 
               {/* Messages Card */}
-              <a href={`sms:${profile.phone}`} className="group relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+              <a href={`sms:${profile.phone}`} className="group relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
                 <span className="absolute top-5 right-5 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">45</span>
                 <div className="w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover:bg-cyan-400/10 group-hover:border-cyan-400 flex items-center justify-center text-[#888888] group-hover:text-cyan-400 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M3 5.983C3 4.888 3.895 4 5 4h14c1.105 0 2 .888 2 1.983v8.923a1.992 1.992 0 0 1-2 1.983h-6.6l-2.867 2.7c-.955.899-2.533.228-2.533-1.08v-1.62H5c-1.105 0-2-.888-2-1.983V5.983Zm5.706 3.809a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Zm2.585.002a1 1 0 1 1 .003 1.414 1 1 0 0 1-.003-1.414Zm5.415-.002a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Z" clipRule="evenodd"/></svg>
@@ -89,7 +169,7 @@ export default function Contact() {
               </a>
 
               {/* Email Card (Full Width) */}
-              <a href={`mailto:${profile.email}`} className="group relative sm:col-span-2 lg:col-span-1 xl:col-span-2 bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+              <a href={`mailto:${profile.email}`} className="group relative sm:col-span-2 lg:col-span-1 xl:col-span-2 bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
                 <span className="absolute top-5 right-5 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">88</span>
                 <div className="w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover:bg-cyan-400/10 group-hover:border-cyan-400 flex items-center justify-center text-[#888888] group-hover:text-cyan-400 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12.037 21.998a10.313 10.313 0 0 1-7.168-3.049 9.888 9.888 0 0 1-2.868-7.118 9.947 9.947 0 0 1 3.064-6.949A10.37 10.37 0 0 1 12.212 2h.176a9.935 9.935 0 0 1 6.614 2.564L16.457 6.88a6.187 6.187 0 0 0-4.131-1.566 6.9 6.9 0 0 0-4.794 1.913 6.618 6.618 0 0 0-2.045 4.657 6.608 6.608 0 0 0 1.882 4.723 6.891 6.891 0 0 0 4.725 2.07h.143c1.41.072 2.8-.354 3.917-1.2a5.77 5.77 0 0 0 2.172-3.41l.043-.117H12.22v-3.41h9.678c.075.617.109 1.238.1 1.859-.099 5.741-4.017 9.6-9.746 9.6l-.215-.002Z" clipRule="evenodd"/></svg>
@@ -102,9 +182,12 @@ export default function Contact() {
 
             </div>
 
-            {/* Socials Block */}
-            <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-[2rem] p-6 lg:p-8 flex flex-col shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-              <h3 className="text-xl font-bold text-[#f4f4f5] mb-6">Social Profiles</h3>
+            {/* Socials Block (Fade In Up) */}
+            <div id="socials" className={`bg-[#0a0a0a] border border-[#1f1f1f] rounded-[2rem] p-6 lg:p-8 flex flex-col shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-1000 ease-out transform ${visible.socials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '300ms' }}>
+              <h3 className="text-xl font-bold text-[#f4f4f5] mb-6 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]"></span>
+                Social Profiles
+              </h3>
               
               <div className="flex flex-wrap gap-3">
                 
@@ -127,28 +210,25 @@ export default function Contact() {
                   Facebook
                 </a>
 
-                {/* Twitter */}
-                <a href="/about" className="group flex items-center gap-2 bg-[#141414] border border-[#262626] hover:border-cyan-400 text-[#a1a1aa] hover:text-cyan-400 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 17"><path fillRule="evenodd" d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z" clipRule="evenodd"/></svg>
-                  Twitter
-                </a>
-
               </div>
             </div>
 
           </div>
 
-          {/* RIGHT COLUMN: Interactive Map (Spans 7 columns) */}
+          {/* RIGHT COLUMN: Interactive Map (Spans 7 columns, Fade In Up) */}
           <div className="lg:col-span-7 h-full min-h-[500px]">
-            <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-[2.5rem] p-6 lg:p-8 flex flex-col gap-6 shadow-[0_0_30px_rgba(0,0,0,0.5)] h-full">
+            <div id="map" className={`bg-[#0a0a0a] border border-[#1f1f1f] rounded-[2.5rem] p-6 lg:p-8 flex flex-col gap-6 shadow-[0_0_30px_rgba(0,0,0,0.5)] h-full transition-all duration-1000 ease-out transform ${visible.map ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '500ms' }}>
               
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#1f1f1f] pb-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-[#f4f4f5] tracking-tight">Location Map</h3>
+                  <h3 className="text-2xl font-bold text-[#f4f4f5] tracking-tight flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]"></span>
+                    Location Map
+                  </h3>
                   <p className="text-[#888888] text-sm font-medium mt-1">Based in Bellandur, Bangalore</p>
                 </div>
 
-                {/* THE NEW "FIND MY LOCATION" BUTTON */}
+                {/* THE "FIND MY LOCATION" BUTTON */}
                 <button 
                   onClick={handleGetLocation}
                   disabled={isLocating}
