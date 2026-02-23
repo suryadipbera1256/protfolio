@@ -6,7 +6,7 @@ import { profile } from "../../../data/profile";
 
 export default function About() {
   return (
-    <main className="min-h-screen text-gray-900 px-8 pt-14 ">
+    <main className="min-h-screen bg-neutral-950 text-gray-900 px-8 pt-14 ">
   <section className="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_2fr]">
         
         {/* Left Side: Photo Section */}

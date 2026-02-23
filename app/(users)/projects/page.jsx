@@ -417,117 +417,64 @@ const abTestingImages = [
 
 
 // --- 2. REUSABLE, INTERACTIVE PROJECT CARD COMPONENT ---
+// --- 2. REUSABLE, INTERACTIVE PROJECT CARD COMPONENT ---
 function ProjectCard({ title, description, link, outputImages, chartFlow, shapData }) {
   if (!title) return null;
 
   return (
     <div className="group relative flex flex-col w-full mb-8 z-0 hover:z-30">
       
-      {/* FRONT LAYER: Main Project Box */}
-      <div className="z-20 relative bg-black border hover:border-white border-neutral-200 dark:border-neutral-800 transition duration-400 ease-in-out p-8 rounded-xl shadow-xl shadow-cyan-500/20 dark:shadow-cyan-900/30 flex flex-col overflow-hidden">
-        <h3 className="text-3xl font-bold text-gray-300 group-hover:text-cyan-300 transition-colors mb-6 z-10">{title}</h3>
+      {/* FRONT LAYER: Main Project Box with Cyan Glow */}
+      <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 transition-all duration-500 ease-in-out p-8 rounded-3xl shadow-none hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col overflow-hidden group/card">
+        <h3 className="text-3xl font-bold text-[#f4f4f5] group-hover/card:text-cyan-400 transition-colors mb-6 z-10">{title}</h3>
         
-        {/* The Continuous Pure CSS Marquee Image Track */}
+        {/* Continuous Pure CSS Marquee Image Track */}
         {outputImages && outputImages.length > 0 && (
           <div className="w-full overflow-hidden mb-8 pb-2 rounded-xl relative z-10">
             <div className="flex w-max animate-carousel hover:[animation-play-state:paused] gap-4">
-              
-              {/* SET 1: First batch of images */}
               <div className="flex gap-4 pr-4">
                 {outputImages.map((img, idx) => (
-                  <div 
-                    key={`set1-${idx}`} 
-                    className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[250px] relative rounded-lg overflow-hidden border border-white/10 bg-neutral-900"
-                  >
-                    <Image 
-                      src={img} 
-                      alt={`${title} preview ${idx}`} 
-                      fill 
-                      className="object-cover object-center" 
-                      priority={idx < 3} 
-                    />
+                  <div key={`set1-${idx}`} className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[250px] relative rounded-lg overflow-hidden border border-[#1f1f1f] bg-[#050505]">
+                    <Image src={img} alt={`${title} preview ${idx}`} fill className="object-cover object-center" priority={idx < 3} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                   </div>
                 ))}
               </div>
-
-              {/* SET 2: Duplicated batch. This creates the seamless looping illusion! */}
               <div className="flex gap-4 pr-4">
                 {outputImages.map((img, idx) => (
-                  <div 
-                    key={`set2-${idx}`} 
-                    className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[250px] relative rounded-lg overflow-hidden border border-white/10 bg-neutral-900"
-                  >
-                    <Image 
-                      src={img} 
-                      alt={`${title} duplicate preview ${idx}`} 
-                      fill 
-                      className="object-cover object-center" 
-                      priority={false} 
-                    />
+                  <div key={`set2-${idx}`} className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[250px] relative rounded-lg overflow-hidden border border-[#1f1f1f] bg-[#050505]">
+                    <Image src={img} alt={`${title} duplicate ${idx}`} fill className="object-cover object-center" priority={false} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                   </div>
                 ))}
               </div>
-
             </div>
           </div>
         )}
 
-        <p className="text-gray-400 text-lg leading-relaxed mb-6 z-10">{description}</p>
+        <p className="text-[#a1a1aa] text-lg leading-relaxed mb-6 z-10">{description}</p>
 
-        {/* --- UPDATED MINIMALIST BUTTON --- */}
-        <a 
-          href={link} 
-          target="_blank" 
-          rel="noreferrer" 
-          className="group/link flex items-center gap-4 mt-auto pt-6 border-t border-[#1a1a1a] z-10"
-        >
-          {/* Circular Icon Button */}
-          <div className="w-10 h-10 rounded-full border border-[#262626] flex items-center justify-center bg-[#050505] group-hover/link:bg-[#f4f4f5] group-hover/link:border-[#f4f4f5] transition-all duration-300">
-            <svg 
-              className="w-4 h-4 text-[#888888] group-hover/link:text-black transition-colors" 
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            >
+        {/* View Repo Button with Cyan Glow & Diagonal Arrow */}
+        <a href={link} target="_blank" rel="noreferrer" className="group/link flex items-center gap-4 mt-auto pt-6 border-t border-[#1a1a1a] z-10 w-max">
+          <div className="w-10 h-10 rounded-full border border-[#262626] flex items-center justify-center bg-[#050505] group-hover/link:bg-cyan-400/10 group-hover/link:border-cyan-400 transition-all duration-300 group-hover/link:shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+            <svg className="w-4 h-4 text-[#888888] group-hover/link:text-cyan-400 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="7" y1="17" x2="17" y2="7"></line>
               <polyline points="7 7 17 7 17 17"></polyline>
             </svg>
           </div>
-          {/* Text that lights up on hover */}
-          <span className="text-[#888888] group-hover/link:text-[#f4f4f5] text-sm font-medium transition-colors tracking-wide">
+          <span className="text-[#888888] group-hover/link:text-cyan-400 text-sm font-medium transition-colors duration-300 tracking-wide">
             View repo / demo
           </span>
         </a>
-        {/* --------------------------------- */}
-
       </div>
 
       {/* BACK LAYER: Slide-down Charts */}
       {(chartFlow || shapData) && (
-        <div className="z-10 relative bg-neutral-950/90 backdrop-blur-sm rounded-b-xl border border-t-0 border-neutral-800/50 px-6 
-                        grid grid-rows-[0fr] group-hover:grid-rows-[1fr] 
-                        opacity-0 group-hover:opacity-100 
-                        -translate-y-16 group-hover:-translate-y-2 
-                        transition-all duration-700 ease-in-out origin-top">
+        <div className="z-10 relative bg-[#050505]/95 backdrop-blur-sm rounded-b-3xl border border-t-0 border-[#1f1f1f] px-6 grid grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 -translate-y-16 group-hover:-translate-y-2 transition-all duration-700 ease-in-out origin-top">
           <div className="overflow-hidden">
             <div className="pt-10 pb-8 flex flex-col gap-8 w-full">
-              
-              {chartFlow && (
-                <Mermaid 
-                  title="System Architecture Flow"
-                  description="Visualizing the end-to-end data and processing pipeline."
-                  chart={chartFlow} 
-                />
-              )}
-              
-              {shapData && (
-                <ShapChart 
-                  title="Model Interpretability (SHAP)"
-                  description="Analysis of feature importance impact on model predictions."
-                  data={shapData} 
-                />
-              )}
-
+              {chartFlow && (<Mermaid title="System Architecture Flow" description="Visualizing the end-to-end data and processing pipeline." chart={chartFlow} />)}
+              {shapData && (<ShapChart title="Model Interpretability (SHAP)" description="Analysis of feature importance impact on model predictions." data={shapData} />)}
             </div>
           </div>
         </div>
@@ -539,95 +486,46 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
 // --- 3. MAIN PAGE STRUCTURE ---
 export default function Projects() {
   return (
-    // relative z-0 prevents hovering elements from going over the Navbar
-    <main className="relative z-0 min-h-screen text-white bg-neutral-950">
-      <section className="max-w-5xl mx-auto pt-20 pb-10 px-4">
+    // Updated background to perfectly match the Home page (#050505)
+    <main className="relative z-0 min-h-screen overflow-x-hidden bg-[#050505] text-[#f4f4f5] pt-32 pb-16">
+      <section className="max-w-5xl mx-auto px-4">
+        
+        {/* Page Title */}
+        <div className="mb-12 pl-2">
+          <div className="mb-6">
+          <h2 className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+              Featured Projects
+          </h2>
+        </div>
+          <p className="text-[#888888] font-medium text-lg">
+            A showcase of my work in AI, Machine Learning, and Data Science.
+          </p>
+        </div>
         <div className="flex flex-col gap-y-2">
-          
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`8-${i}`} title={p.title_8} description={p.description_8} link={p.link_8} 
-              outputImages={factoryGuardImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData}
-            />
+            <ProjectCard key={`8-${i}`} title={p.title_8} description={p.description_8} link={p.link_8} outputImages={factoryGuardImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData} />
           ))}
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`1-${i}`} title={p.title_1} description={p.description_1} link={p.link_1} 
-              outputImages={lungCancerImages} chartFlow={lungCancerFlow } shapData={lungCancerShapData}
-            />
+            <ProjectCard key={`1-${i}`} title={p.title_1} description={p.description_1} link={p.link_1} outputImages={lungCancerImages} chartFlow={lungCancerFlow } shapData={lungCancerShapData} />
           ))}
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`1-${i}`} title={p.title_9} description={p.description_9} link={p.link_9} 
-              outputImages={liliAiImages} chartFlow={liliAiFlow }
-            />
+            <ProjectCard key={`1-${i}`} title={p.title_9} description={p.description_9} link={p.link_9} outputImages={liliAiImages} chartFlow={liliAiFlow } />
           ))}
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`1-${i}`} title={p.title_12} description={p.description_12} link={p.link_12} 
-              outputImages={trendScoutImages} chartFlow={trendScoutFlow } 
-            />
+            <ProjectCard key={`1-${i}`} title={p.title_12} description={p.description_12} link={p.link_12} outputImages={trendScoutImages} chartFlow={trendScoutFlow } />
           ))}
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`1-${i}`} title={p.title_10} description={p.description_10} link={p.link_10} 
-              outputImages={taxiTipImages} chartFlow={taxiTipFlow } shapData={taxiTipShapData}
-            />
+            <ProjectCard key={`1-${i}`} title={p.title_10} description={p.description_10} link={p.link_10} outputImages={taxiTipImages} chartFlow={taxiTipFlow } shapData={taxiTipShapData} />
           ))}
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`1-${i}`} title={p.title_11} description={p.description_11} link={p.link_11} 
-              outputImages={hrAttritionImages} chartFlow={hrAttritionFlow } shapData={hrAttritionShapData}
-            />
+            <ProjectCard key={`1-${i}`} title={p.title_11} description={p.description_11} link={p.link_11} outputImages={hrAttritionImages} chartFlow={hrAttritionFlow } shapData={hrAttritionShapData} />
           ))}
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`3-${i}`} title={p.title_3} description={p.description_3} link={p.link_3} 
-              outputImages={seizureRecognitionImages} chartFlow={seizureRecognitionFlow} shapData={seizureShapData}
-            />
+            <ProjectCard key={`3-${i}`} title={p.title_3} description={p.description_3} link={p.link_3} outputImages={seizureRecognitionImages} chartFlow={seizureRecognitionFlow} shapData={seizureShapData} />
           ))}
           {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`4-${i}`} title={p.title_13} description={p.description_13} link={p.link_13} 
-              outputImages={abTestingImages} chartFlow={abTestingFlow}
-            />
+            <ProjectCard key={`4-${i}`} title={p.title_13} description={p.description_13} link={p.link_13} outputImages={abTestingImages} chartFlow={abTestingFlow} />
           ))}
-          {/* 
-          {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`4-${i}`} title={p.title_4} description={p.description_4} link={p.link_4} 
-              outputImages={placeholderImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData}
-            />
-          ))}
-
-          {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`5-${i}`} title={p.title_5} description={p.description_5} link={p.link_5} 
-              outputImages={placeholderImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData}
-            />
-          ))}
-
-          {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`6-${i}`} title={p.title_6} description={p.description_6} link={p.link_6} 
-              outputImages={placeholderImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData}
-            />
-          ))}
-
-          {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`2-${i}`} title={p.title_2} description={p.description_2} link={p.link_2}
-              outputImages={placeholderImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData}
-            />
-          ))}
-
-          {profile.projects.map((p, i) => (
-            <ProjectCard 
-              key={`7-${i}`} title={p.title_7} description={p.description_7} link={p.link_7} 
-              outputImages={placeholderImages} chartFlow={factoryGuardFlow} shapData={factoryGuardShapData}
-            />
-          ))} */}
-
         </div>
       </section>
     </main>

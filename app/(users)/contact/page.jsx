@@ -6,7 +6,7 @@ import Map from "../../../components/Map";
 
 export default function Contact() {
   return (
-    <main className="min-h-screen text-white">
+    <main className="min-h-screen  bg-neutral-950 text-white">
       <section className="max-w-2xl mx-auto text-center py-20 px-4">
         <h1 className="text-4xl font-bold mb-6">Get in Touch</h1>
         <p className="text-gray-300 mb-8">
