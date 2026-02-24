@@ -74,7 +74,7 @@ export const profile = {
 
       title_11: 'Employee Attrition Prediction for HR-Analytics',
       description_11: 'An AI-powered employee attrition prediction system for HR analytics. The application uses machine learning algorithms to analyze employee data and predict the likelihood of attrition, helping organizations take proactive measures.',
-      link_11: 'https://github.com/suryadipbera1256/Employee-Attrition-Prediction-for-HR-Analytics---Salifort-Motors.git',
+      link_11: 'https://github.com/suryadipbera1256/Employee-Attrition-Prediction-for-HR-Analytics---Salifort-Motors--',
 
       title_12: 'TrendScout E-Commerce Intelligence Collector',
       description_12: 'An automated data extraction tool designed to gather real-time competitive intelligence from major e-commerce platforms. It systematically navigates product listings to harvest critical data points, transforming unstructured web content into structured datasets for market analysis.',
@@ -92,9 +92,9 @@ export const profile = {
       description_1: 'Co-author(s) of the paper entitled "Machine Learning Approaches in Drug Classification from biomarkers of Epileptic Seizure".',
       link_1: 'https://drive.google.com/file/d/1M6GBqRyozCkHEt5xmdH4F96pu631mDpw/view?pli=1',
 
-      title_2: 'Atizon',
+      title_2: 'Autism Spectrum Disorder (ASD) Prediction using Machine Learning',
       description_2: 'Research and implementation details are currently under development and review.',
-      link_2: 'https://github.com/suryadipbera1256/Lung-Cancer-Detection-Using-CNN'
+      link_2: 'https://github.com/suryadipbera1256'
     }
   ],
 

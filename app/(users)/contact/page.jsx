@@ -11,13 +11,11 @@ function Typewriter({ text, delay = 0, speed = 15, showCursor = false, start = t
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    // Wait until triggered
     if (!start) return;
     
     let i = 0;
     let interval;
     
-    // Start typing after delay
     const timeout = setTimeout(() => {
       setIsTyping(true);
       interval = setInterval(() => {
@@ -30,7 +28,6 @@ function Typewriter({ text, delay = 0, speed = 15, showCursor = false, start = t
       }, speed);
     }, delay);
 
-    // This completely fixes the Next.js Strict Mode "invisible text" bug
     return () => {
       clearTimeout(timeout);
       clearInterval(interval);
@@ -39,9 +36,7 @@ function Typewriter({ text, delay = 0, speed = 15, showCursor = false, start = t
 
   return (
     <span className="relative inline-block">
-      {/* Invisible text preserves layout so the page never jumps */}
       <span className="invisible whitespace-pre-wrap">{text}</span>
-      {/* Visible typing text overlaid exactly on top */}
       <span className="absolute top-0 left-0 w-full h-full text-inherit whitespace-pre-wrap">
         {displayedText}
         {showCursor && isTyping && (
@@ -53,12 +48,10 @@ function Typewriter({ text, delay = 0, speed = 15, showCursor = false, start = t
 }
 
 export default function Contact() {
-  // Geolocation State
   const [mapCenter, setMapCenter] = useState({ lat: 12.9304, lng: 77.6784 });
   const [userLocation, setUserLocation] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
 
-  // Animation States (Animate Once & Lock)
   const [visible, setVisible] = useState({
     header: false,
     cards: false,
@@ -66,9 +59,7 @@ export default function Contact() {
     map: false
   });
 
-  // Setup Intersection Observer for Scroll Animations
   useEffect(() => {
-    // Instantly trigger header animation on load so it never disappears!
     setVisible(prev => ({ ...prev, header: true }));
 
     const observer = new IntersectionObserver(
@@ -82,7 +73,6 @@ export default function Contact() {
       { rootMargin: '0px 0px -50px 0px' }
     );
 
-    // Only observe the items below the fold
     ['cards', 'socials', 'map'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
@@ -91,15 +81,14 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
-  // Triggered when user clicks "Find My Location"
   const handleGetLocation = () => {
     setIsLocating(true);
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const loc = { lat: position.coords.latitude, lng: position.coords.longitude };
-          setUserLocation(loc); // Drops the blue pin
-          setMapCenter(loc);    // Pans the map to their location
+          setUserLocation(loc); 
+          setMapCenter(loc);    
           setIsLocating(false);
         },
         (error) => {
@@ -120,7 +109,7 @@ export default function Contact() {
 
       <section className="max-w-[85rem] mx-auto px-6 md:px-12 lg:px-16">
         
-        {/* --- HEADER (Typewriter Animations) --- */}
+        {/* --- HEADER --- */}
         <div id="header" className="mb-16 max-w-2xl">
           <div className="mb-6">
             <span className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
@@ -141,40 +130,43 @@ export default function Contact() {
           {/* LEFT COLUMN: Contact Cards & Socials (Spans 5 columns) */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
-            {/* Direct Contact Cards (Fade In Up) */}
+            {/* Direct Contact Cards (Fade In Up Wrapper) */}
             <div id="cards" className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 transition-all duration-1000 ease-out transform ${visible.cards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '100ms' }}>
               
-              {/* Call Me Card */}
-              <a href={`tel:${profile.phone}`} className="group relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
-                <span className="absolute top-5 right-5 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">2</span>
-                <div className="w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover:bg-cyan-400/10 group-hover:border-cyan-400 flex items-center justify-center text-[#888888] group-hover:text-cyan-400 transition-all duration-300">
+              {/* ANIMATED CALL ME CARD */}
+              <a href={`tel:${profile.phone}`} className="group/box relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/40 rounded-3xl p-6 flex flex-col items-start gap-4 shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(6,182,212,0.15)] hover:-translate-y-2 overflow-hidden">
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/box:opacity-100 transition-all duration-700 ease-in-out scale-110 group-hover/box:scale-100" style={{ background: 'radial-gradient(circle at 50% -20%, rgba(6,182,212,0.12), transparent 70%)' }} />
+                <span className="absolute top-5 right-5 z-10 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">2</span>
+                <div className="relative z-10 w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover/box:bg-cyan-400/10 group-hover/box:border-cyan-400 flex items-center justify-center text-[#888888] group-hover/box:text-cyan-400 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.97825 3.99999c-.3729 0-.74128.08169-1.07926.23934-.32394.15109-.61243.36845-.84696.63786-1.81892 1.82189-2.35302 3.87423-1.89899 5.93671.43916 1.9949 1.77747 3.8929 3.45642 5.572 1.67897 1.6791 3.57614 3.0176 5.57034 3.4591 2.0612.4563 4.1141-.0726 5.9396-1.8853.2705-.2348.4888-.524.6405-.8489.1581-.3387.2401-.7081.2401-1.0819 0-.3739-.082-.7432-.2401-1.0819-.1516-.3247-.3696-.6137-.6398-.8483l-1.2098-1.2106c-.5043-.5041-1.1879-.7872-1.9007-.7872-.7128 0-1.3968.2835-1.9011.7876l-.6178.6181c-.1512.1513-.3563.2363-.5701.2363-.2138 0-.4189-.085-.5701-.2363l-1.85336-1.8545c-.15117-.1513-.23609-.3565-.23609-.5704 0-.214.08493-.4192.23613-.5705l.61812-.61851c.5037-.50461.7867-1.18868.7867-1.90191s-.2833-1.39767-.7871-1.90228L8.90499 4.8778c-.23462-.26969-.5233-.48727-.84749-.63847-.33798-.15765-.70636-.23934-1.07925-.23934Z"/><path fillRule="evenodd" d="M18.0299 8.98132c0 .55229-.4477 1-1 .99999l-3.03-.00002c-.5522 0-1-.44772-1-1V5.99995c0-.55229.4478-1 1-1 .5523 0 1 .44771 1 1v.58112l3.3184-3.29111c.3921-.38892 1.0253-.38631 1.4142.00582.3889.39213.3863 1.02529-.0058 1.4142l-3.2984 3.27133h.6016c.5523.00001 1 .44773 1 1.00001Z" clipRule="evenodd"/></svg>
                 </div>
-                <div>
+                <div className="relative z-10">
                   <h3 className="text-lg font-bold text-[#f4f4f5]">Call Me</h3>
                   <p className="text-sm font-medium text-[#888888] mt-1">Direct contact</p>
                 </div>
               </a>
 
-              {/* Messages Card */}
-              <a href={`sms:${profile.phone}`} className="group relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
-                <span className="absolute top-5 right-5 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">45</span>
-                <div className="w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover:bg-cyan-400/10 group-hover:border-cyan-400 flex items-center justify-center text-[#888888] group-hover:text-cyan-400 transition-all duration-300">
+              {/* ANIMATED MESSAGES CARD */}
+              <a href={`sms:${profile.phone}`} className="group/box relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/40 rounded-3xl p-6 flex flex-col items-start gap-4 shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(6,182,212,0.15)] hover:-translate-y-2 overflow-hidden">
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/box:opacity-100 transition-all duration-700 ease-in-out scale-110 group-hover/box:scale-100" style={{ background: 'radial-gradient(circle at 50% -20%, rgba(6,182,212,0.12), transparent 70%)' }} />
+                <span className="absolute top-5 right-5 z-10 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">45</span>
+                <div className="relative z-10 w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover/box:bg-cyan-400/10 group-hover/box:border-cyan-400 flex items-center justify-center text-[#888888] group-hover/box:text-cyan-400 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M3 5.983C3 4.888 3.895 4 5 4h14c1.105 0 2 .888 2 1.983v8.923a1.992 1.992 0 0 1-2 1.983h-6.6l-2.867 2.7c-.955.899-2.533.228-2.533-1.08v-1.62H5c-1.105 0-2-.888-2-1.983V5.983Zm5.706 3.809a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Zm2.585.002a1 1 0 1 1 .003 1.414 1 1 0 0 1-.003-1.414Zm5.415-.002a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Z" clipRule="evenodd"/></svg>
                 </div>
-                <div>
+                <div className="relative z-10">
                   <h3 className="text-lg font-bold text-[#f4f4f5]">Messages</h3>
                   <p className="text-sm font-medium text-[#888888] mt-1">Send a quick text</p>
                 </div>
               </a>
 
-              {/* Email Card (Full Width) */}
-              <a href={`mailto:${profile.email}`} className="group relative sm:col-span-2 lg:col-span-1 xl:col-span-2 bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/60 rounded-3xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
-                <span className="absolute top-5 right-5 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">88</span>
-                <div className="w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover:bg-cyan-400/10 group-hover:border-cyan-400 flex items-center justify-center text-[#888888] group-hover:text-cyan-400 transition-all duration-300">
+              {/* ANIMATED EMAIL CARD (Full Width) */}
+              <a href={`mailto:${profile.email}`} className="group/box relative sm:col-span-2 lg:col-span-1 xl:col-span-2 bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/40 rounded-3xl p-6 flex flex-col items-start gap-4 shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(6,182,212,0.15)] hover:-translate-y-2 overflow-hidden">
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/box:opacity-100 transition-all duration-700 ease-in-out scale-110 group-hover/box:scale-100" style={{ background: 'radial-gradient(circle at 50% -20%, rgba(6,182,212,0.12), transparent 70%)' }} />
+                <span className="absolute top-5 right-5 z-10 bg-cyan-400/10 text-cyan-400 text-xs font-bold px-2.5 py-1 rounded-full border border-cyan-400/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]">88</span>
+                <div className="relative z-10 w-12 h-12 rounded-full bg-[#141414] border border-[#262626] group-hover/box:bg-cyan-400/10 group-hover/box:border-cyan-400 flex items-center justify-center text-[#888888] group-hover/box:text-cyan-400 transition-all duration-300">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12.037 21.998a10.313 10.313 0 0 1-7.168-3.049 9.888 9.888 0 0 1-2.868-7.118 9.947 9.947 0 0 1 3.064-6.949A10.37 10.37 0 0 1 12.212 2h.176a9.935 9.935 0 0 1 6.614 2.564L16.457 6.88a6.187 6.187 0 0 0-4.131-1.566 6.9 6.9 0 0 0-4.794 1.913 6.618 6.618 0 0 0-2.045 4.657 6.608 6.608 0 0 0 1.882 4.723 6.891 6.891 0 0 0 4.725 2.07h.143c1.41.072 2.8-.354 3.917-1.2a5.77 5.77 0 0 0 2.172-3.41l.043-.117H12.22v-3.41h9.678c.075.617.109 1.238.1 1.859-.099 5.741-4.017 9.6-9.746 9.6l-.215-.002Z" clipRule="evenodd"/></svg>
                 </div>
-                <div>
+                <div className="relative z-10">
                   <h3 className="text-lg font-bold text-[#f4f4f5]">Email Address</h3>
                   <p className="text-sm font-medium text-[#888888] mt-1">{profile.email}</p>
                 </div>
@@ -182,73 +174,85 @@ export default function Contact() {
 
             </div>
 
-            {/* Socials Block (Fade In Up) */}
-            <div id="socials" className={`bg-[#0a0a0a] border border-[#1f1f1f] rounded-[2rem] p-6 lg:p-8 flex flex-col shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-1000 ease-out transform ${visible.socials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '300ms' }}>
-              <h3 className="text-xl font-bold text-[#f4f4f5] mb-6 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]"></span>
-                Social Profiles
-              </h3>
-              
-              <div className="flex flex-wrap gap-3">
+            {/* ANIMATED SOCIALS BLOCK (Fade In Up Wrapper) */}
+            <div id="socials" className={`transition-all duration-1000 ease-out transform ${visible.socials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '300ms' }}>
+              <div className="group/box relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/40 rounded-[2rem] p-6 lg:p-8 flex flex-col shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.15)] transition-all duration-500 hover:-translate-y-2 overflow-hidden h-full">
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/box:opacity-100 transition-all duration-700 ease-in-out scale-110 group-hover/box:scale-100" style={{ background: 'radial-gradient(circle at 50% -20%, rgba(6,182,212,0.12), transparent 70%)' }} />
                 
-                {/* LinkedIn */}
-                <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="group flex items-center gap-2 bg-[#141414] border border-[#262626] hover:border-cyan-400 text-[#a1a1aa] hover:text-cyan-400 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clipRule="evenodd"/><path d="M7.2 8.809H4V19.5h3.2V8.809Z"/></svg>
-                  LinkedIn
-                  <span className="bg-[#1a1a1a] text-cyan-400 px-1.5 py-0.5 rounded-full text-[10px] ml-1">9</span>
-                </a>
+                <div className="relative z-10">
+                  <h3 className="text-xl font-bold text-[#f4f4f5] mb-6 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]"></span>
+                    Social Profiles
+                  </h3>
+                  
+                  <div className="flex flex-wrap gap-3">
+                    
+                    {/* Magnetic LinkedIn Pill */}
+                    <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="group flex items-center gap-2 bg-[#141414] border border-[#262626] hover:border-cyan-400 text-[#a1a1aa] hover:text-cyan-400 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:-translate-y-1.5 hover:scale-105">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clipRule="evenodd"/><path d="M7.2 8.809H4V19.5h3.2V8.809Z"/></svg>
+                      LinkedIn
+                      <span className="bg-[#1a1a1a] text-cyan-400 px-1.5 py-0.5 rounded-full text-[10px] ml-1">9</span>
+                    </a>
 
-                {/* GitHub */}
-                <a href={profile.links.github} target="_blank" rel="noreferrer" className="group flex items-center gap-2 bg-[#141414] border border-[#262626] hover:border-cyan-400 text-[#a1a1aa] hover:text-cyan-400 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clipRule="evenodd"/></svg>
-                  Github
-                </a>
+                    {/* Magnetic GitHub Pill */}
+                    <a href={profile.links.github} target="_blank" rel="noreferrer" className="group flex items-center gap-2 bg-[#141414] border border-[#262626] hover:border-cyan-400 text-[#a1a1aa] hover:text-cyan-400 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:-translate-y-1.5 hover:scale-105">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clipRule="evenodd"/></svg>
+                      Github
+                    </a>
 
-                {/* Facebook */}
-                <a href={profile.links.facebook} target="_blank" rel="noreferrer" className="group flex items-center gap-2 bg-[#141414] border border-[#262626] hover:border-cyan-400 text-[#a1a1aa] hover:text-cyan-400 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 8 19"><path fillRule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clipRule="evenodd"/></svg>
-                  Facebook
-                </a>
+                    {/* Magnetic Facebook Pill */}
+                    <a href={profile.links.facebook} target="_blank" rel="noreferrer" className="group flex items-center gap-2 bg-[#141414] border border-[#262626] hover:border-cyan-400 text-[#a1a1aa] hover:text-cyan-400 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:-translate-y-1.5 hover:scale-105">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 8 19"><path fillRule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clipRule="evenodd"/></svg>
+                      Facebook
+                    </a>
 
+                  </div>
+                </div>
               </div>
             </div>
 
           </div>
 
-          {/* RIGHT COLUMN: Interactive Map (Spans 7 columns, Fade In Up) */}
+          {/* ANIMATED RIGHT COLUMN: Interactive Map (Spans 7 columns) */}
           <div className="lg:col-span-7 h-full min-h-[500px]">
-            <div id="map" className={`bg-[#0a0a0a] border border-[#1f1f1f] rounded-[2.5rem] p-6 lg:p-8 flex flex-col gap-6 shadow-[0_0_30px_rgba(0,0,0,0.5)] h-full transition-all duration-1000 ease-out transform ${visible.map ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '500ms' }}>
+            {/* Wrapper for Entrance Animation */}
+            <div id="map" className={`h-full transition-all duration-1000 ease-out transform ${visible.map ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '500ms' }}>
               
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#1f1f1f] pb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-[#f4f4f5] tracking-tight flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]"></span>
-                    Location Map
-                  </h3>
-                  <p className="text-[#888888] text-sm font-medium mt-1">Based in Bellandur, Bangalore</p>
+              {/* Animated Map Box */}
+              <div className="group/box relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/40 rounded-[2.5rem] p-6 lg:p-8 flex flex-col gap-6 shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.15)] transition-all duration-500 hover:-translate-y-2 overflow-hidden h-full">
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/box:opacity-100 transition-all duration-700 ease-in-out scale-110 group-hover/box:scale-100" style={{ background: 'radial-gradient(circle at 50% -20%, rgba(6,182,212,0.12), transparent 70%)' }} />
+                
+                <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#1f1f1f] pb-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-[#f4f4f5] tracking-tight flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]"></span>
+                      Location Map
+                    </h3>
+                    <p className="text-[#888888] text-sm font-medium mt-1">Based in Bellandur, Bangalore</p>
+                  </div>
+
+                  {/* Magnetic "FIND MY LOCATION" Button */}
+                  <button 
+                    onClick={handleGetLocation}
+                    disabled={isLocating}
+                    className="group flex items-center gap-3 bg-transparent border border-[#333333] hover:border-cyan-400 text-[#f4f4f5] hover:text-cyan-400 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+                  >
+                    {isLocating ? 'Locating...' : 'Find My Location'}
+                    {!isLocating && (
+                      <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    )}
+                  </button>
                 </div>
 
-                {/* THE "FIND MY LOCATION" BUTTON */}
-                <button 
-                  onClick={handleGetLocation}
-                  disabled={isLocating}
-                  className="group flex items-center gap-3 bg-transparent border border-[#333333] hover:border-cyan-400 text-[#f4f4f5] hover:text-cyan-400 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
-                >
-                  {isLocating ? 'Locating...' : 'Find My Location'}
-                  {!isLocating && (
-                    <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  )}
-                </button>
-              </div>
+                {/* MAP RENDER AREA */}
+                <div className="relative z-10 w-full flex-grow rounded-3xl overflow-hidden border border-[#1f1f1f] shadow-inner">
+                  <Map center={mapCenter} userLocation={userLocation} />
+                </div>
 
-              {/* MAP RENDER AREA */}
-              <div className="relative w-full flex-grow rounded-3xl overflow-hidden border border-[#1f1f1f]">
-                <Map center={mapCenter} userLocation={userLocation} />
               </div>
-
             </div>
           </div>
 

@@ -47,7 +47,7 @@ function Typewriter({ text, delay = 0, speed = 30, showCursor = false, start = t
   );
 }
 
-// --- 1. DATA DEFINITIONS ---
+// --- 1. BULLETPROOF DATA DEFINITIONS ---
 const factoryGuardFlow = `flowchart LR
   classDef factory fill:#0f172a,stroke:#334155,color:#fff,stroke-width:2px
   classDef process fill:#1e293b,stroke:#0891b2,color:#fff,stroke-width:2px
@@ -56,34 +56,35 @@ const factoryGuardFlow = `flowchart LR
   classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
   classDef safe fill:#14532d,stroke:#22c55e,color:#fff,stroke-width:2px
 
-  subgraph IoT ["Sensors"]
-    S(Temp, Pressure, Vib)
+  subgraph IoT [Sensors]
+    S(Temp Pressure Vib)
   end
   class IoT factory
 
-  subgraph Pipeline ["Data Pipeline"]
-    P1(Interpolate & Roll Mean) --> P2(SMOTE)
+  subgraph Pipeline [Data Pipeline]
+    P1(Interpolate and Roll Mean) --> P2(SMOTE)
   end
   class Pipeline process
 
-  subgraph Engine ["ML Engine"]
-    M1[(XGBoost)] --- M2{SHAP}
+  subgraph Engine [ML Engine]
+    M1(XGBoost) --- M2(SHAP)
   end
   class Engine model
 
-  subgraph Deploy ["Deployment"]
-    D(Flask UI & API)
+  subgraph Deploy [Deployment]
+    D(Flask UI and API)
   end
   class Deploy app
 
   IoT --> Pipeline --> Engine --> Deploy
   Deploy --> T{Prob >= 50%?}
-  T -- Yes --> Danger[CRITICAL RISK]
-  T -- No --> Safe[Healthy]
+  T -- Yes --> Danger(CRITICAL RISK)
+  T -- No --> Safe(Healthy)
 
   class Danger alert
   class Safe safe
 `;
+
 const factoryGuardShapData = [
   { feature: "Temperature_roll_mean", importance: 2.47 },
   { feature: "Vibration_roll_mean", importance: 1.00 },
@@ -104,40 +105,41 @@ const lungCancerFlow = `flowchart LR
   classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
   classDef safe fill:#14532d,stroke:#22c55e,color:#fff,stroke-width:2px
 
-  subgraph Input ["Image Pipeline"]
+  subgraph Input [Image Pipeline]
     direction TB
-    I(Raw Medical Scans) --> P(Resize & Normalize)
+    I(Raw Medical Scans) --> P(Resize and Normalize)
     P --> A(Data Augmentation)
   end
   class Input data
 
-  subgraph FeatureExtraction ["Transfer Learning"]
+  subgraph FeatureExtraction [Transfer Learning]
     direction TB
     Base(Inception V3 Base) --> Freeze(Freeze Core Weights)
     Freeze --> Extract(Extract Spatial Features)
   end
   class FeatureExtraction cnn
 
-  subgraph Classification ["Custom Top Layers"]
+  subgraph Classification [Custom Top Layers]
     direction TB
-    F(Global Average Pooling) --> D1(Dense Layer + Dropout)
-    D1 --> D2(Softmax / Sigmoid)
+    F(Global Average Pooling) --> D1(Dense Layer and Dropout)
+    D1 --> D2(Softmax Sigmoid)
   end
   class Classification dense
 
-  subgraph Results ["Diagnosis Output"]
+  subgraph Results [Diagnosis Output]
     direction TB
     O{Malignancy Prob >= Threshold?}
   end
   class Results output
 
   Input --> FeatureExtraction --> Classification --> Results
-  Results -- Yes --> Malignant[Malignant Detected]
-  Results -- No --> Benign[Benign / Normal]
+  Results -- Yes --> Malignant(Malignant Detected)
+  Results -- No --> Benign(Benign Normal)
 
   class Malignant alert
   class Benign safe
 `;
+
 const lungCancerShapData = [
   { feature: "Inception_Mixed_7c (High-level Texture)", importance: 3.42 },
   { feature: "Inception_Mixed_6a (Spatial Contours)", importance: 2.15 },
@@ -150,33 +152,32 @@ const lungCancerImages = [
     "/PIC/lcd4.jpg", "/PIC/lcd5.jpg", "/PIC/lcd6.jpg",
 ];
 
-// --- UPDATED TRENDSCOUT FLOWCHART ---
 const trendScoutFlow = `flowchart LR
   classDef source fill:#0f172a,stroke:#334155,color:#fff,stroke-width:2px
   classDef crawler fill:#1e293b,stroke:#0891b2,color:#fff,stroke-width:2px
   classDef parser fill:#312e81,stroke:#6366f1,color:#fff,stroke-width:2px
   classDef storage fill:#064e3b,stroke:#10b981,color:#fff,stroke-width:2px
 
-  subgraph Target ["🌐 E-Commerce Target"]
-    W(Myntra Website\\nDynamic SPA)
+  subgraph Target [E-Commerce Target]
+    W(Myntra Website Dynamic SPA)
   end
   class Target source
 
-  subgraph ScrapingEngine ["Selenium Crawler & Anti-Bot"]
+  subgraph ScrapingEngine [Selenium Crawler and Anti-Bot]
     direction TB
-    S(Init WebDriver\\nCustom User-Agent) --> Wait(Explicit Waits)
-    Wait --> DOM(Simulated Scrolling\\nTrigger Lazy Loading)
+    S(Init WebDriver Custom User-Agent) --> Wait(Explicit Waits)
+    Wait --> DOM(Simulated Scrolling Trigger Lazy Loading)
   end
   class ScrapingEngine crawler
 
-  subgraph Parser ["Data Parsing Pipeline"]
+  subgraph Parser [Data Parsing Pipeline]
     direction TB
-    HTML(Fetch 'product-base' Elements) --> Extract(Extract Brands, Names, Links & Prices)
+    HTML(Fetch product-base Elements) --> Extract(Extract Brands Names Links Prices)
   end
   class Parser parser
 
-  subgraph Output ["💾 Intelligence Storage"]
-    DF(Pandas DataFrame) --> CSV[(myntra_lipsticks.csv)]
+  subgraph Output [Intelligence Storage]
+    DF(Pandas DataFrame) --> CSV(myntra_lipsticks.csv)
   end
   class Output storage
 
@@ -186,33 +187,32 @@ const trendScoutImages = [
     "/PIC/ts1.jpg", "/PIC/ts2.jpg", "/PIC/ts3.jpg", "/PIC/ts4.jpg", "/PIC/ts5.jpg",
 ];
 
-// --- UPDATED PERSONAL CARE LLM POC FLOWCHART ---
 const liliAiFlow = `flowchart LR
   classDef frontend fill:#0f172a,stroke:#334155,color:#fff,stroke-width:2px
   classDef backend fill:#1e293b,stroke:#0891b2,color:#fff,stroke-width:2px
   classDef ai fill:#312e81,stroke:#6366f1,color:#fff,stroke-width:2px
   classDef db fill:#064e3b,stroke:#10b981,color:#fff,stroke-width:2px
 
-  subgraph UI ["🖥️ User Interface"]
+  subgraph UI [User Interface]
     S(Streamlit Web App)
   end
   class UI frontend
 
-  subgraph Backend ["⚙️ App Logic & Guardrails"]
+  subgraph Backend [App Logic and Guardrails]
     direction TB
-    Input(User Query) --> Guard{Rule Check:\\nReturns/Offers?}
-    Guard -- Pass --> Context[Inject Product Data\\nfrom JSON]
+    Input(User Query) --> Guard{Check Returns or Offers}
+    Guard -- Pass --> Context(Inject Product Data from JSON)
     Context --> Prompt(Format System Instructions)
   end
   class Backend backend
 
-  subgraph LLM ["🧠 AI Engine"]
-    Llama(Groq API:\\nLlama-3.3-70b)
+  subgraph LLM [AI Engine]
+    Llama(Groq API Llama-3.3-70b)
   end
   class LLM ai
 
-  subgraph DB ["💾 Audit Logging"]
-    PG[(PostgreSQL Database\\nSession History)]
+  subgraph DB [Audit Logging]
+    PG(PostgreSQL Database Session History)
   end
   class DB db
 
@@ -220,7 +220,7 @@ const liliAiFlow = `flowchart LR
   Prompt --> Llama
   Llama --> Response(AI Response)
   Response --> UI
-  Guard -- Triggered --> Handoff[Human Support Handoff]
+  Guard -- Triggered --> Handoff(Human Support Handoff)
   Handoff --> UI
   UI -. Logs Interaction .-> PG
 `;
@@ -236,33 +236,33 @@ const taxiTipFlow = `flowchart LR
   classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
   classDef safe fill:#14532d,stroke:#22c55e,color:#fff,stroke-width:2px
 
-  subgraph Input ["🚕 Input Data"]
+  subgraph Input [Input Data]
     direction TB
     D(NYC Yellow Taxi Trip Data) --> Filter(Filter Credit Card Payments)
   end
   class Input data
 
-  subgraph FeatureEngineering ["Data Pipeline"]
+  subgraph FeatureEngineering [Data Pipeline]
     direction TB
     F1(Calculate Trip Duration) --> F2(Create Rush Hour Flags)
   end
   class FeatureEngineering process
 
-  subgraph Modeling ["Machine Learning"]
+  subgraph Modeling [Machine Learning]
     direction TB
     M1(Random Forest Classifier) --- M2(XGBoost Classifier)
   end
   class Modeling model
 
-  subgraph Evaluation ["Evaluation & Output"]
+  subgraph Evaluation [Evaluation and Output]
     direction TB
-    E(F1, Precision, Recall) --> O{Tip >= 20%?}
+    E(F1 Precision Recall) --> O{Tip >= 20%?}
   end
   class Evaluation eval
 
   Input --> FeatureEngineering --> Modeling --> Evaluation
-  Evaluation -- Yes --> Generous[Generous Tip ]
-  Evaluation -- No --> Standard[Standard Tip ]
+  Evaluation -- Yes --> Generous(Generous Tip)
+  Evaluation -- No --> Standard(Standard Tip)
 `;
 const taxiTipShapData = [
   { feature: "fare_amount", importance: 4.85 },
@@ -283,29 +283,29 @@ const hrAttritionFlow = `flowchart LR
   classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
   classDef safe fill:#14532d,stroke:#22c55e,color:#fff,stroke-width:2px
 
-  subgraph Input ["HR Data"]
+  subgraph Input [HR Data]
     direction TB
-    D(HR Capstone Dataset) --> Filter(Clean & Format Data)
+    D(HR Capstone Dataset) --> Filter(Clean and Format Data)
   end
   class Input data
-  subgraph FeatureEngineering [" Data Pipeline"]
+  subgraph FeatureEngineering [Data Pipeline]
     direction TB
     F1(Feature Engineering) --> F2(Encode Categoricals)
   end
   class FeatureEngineering process
-  subgraph Modeling [" Machine Learning"]
+  subgraph Modeling [Machine Learning]
     direction TB
     M1(Random Forest 1) --- M2(Random Forest 2)
   end
   class Modeling model
-  subgraph Evaluation ["Prediction"]
+  subgraph Evaluation [Prediction]
     direction TB
-    E(Evaluate: AUC, Precision, Recall) --> O{Attrition Risk?}
+    E(Evaluate AUC Precision Recall) --> O{Attrition Risk?}
   end
   class Evaluation eval
   Input --> FeatureEngineering --> Modeling --> Evaluation
-  Evaluation -- High --> Leave[Likely to Leave ]
-  Evaluation -- Low --> Stay[Likely to Stay ]
+  Evaluation -- High --> Leave(Likely to Leave)
+  Evaluation -- Low --> Stay(Likely to Stay)
 `;
 const hrAttritionShapData = [
   { feature: "satisfaction_level", importance: 0.35 },
@@ -326,33 +326,33 @@ const seizureRecognitionFlow = `flowchart LR
   classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
   classDef safe fill:#14532d,stroke:#22c55e,color:#fff,stroke-width:2px
 
-  subgraph Input ["EEG Biomarker Data"]
+  subgraph Input [EEG Biomarker Data]
     direction TB
     D(Raw Signal Data) --> Scale(StandardScaler)
   end
   class Input data
 
-  subgraph Modeling ["Machine Learning"]
+  subgraph Modeling [Machine Learning]
     direction TB
-    M(Support Vector Classifier) --> K(RBF Kernel, C=10)
+    M(Support Vector Classifier) --> K(RBF Kernel C=10)
   end
   class Modeling model
 
-  subgraph XAI ["Explainability"]
+  subgraph XAI [Explainability]
     direction TB
-    S(SHAP Permutation Explainer) --> C(Confusion Matrix: 97.5% Acc)
+    S(SHAP Permutation Explainer) --> C(Confusion Matrix 97.5% Acc)
   end
   class XAI process
 
-  subgraph Output ["Prediction"]
+  subgraph Output [Prediction]
     direction TB
     O{Seizure Detected?}
   end
   class Output eval
 
   Input --> Modeling --> XAI --> Output
-  Output -- Yes --> Alert[Seizure Activity ]
-  Output -- No --> Safe[Normal Activity ]
+  Output -- Yes --> Alert(Seizure Activity)
+  Output -- No --> Safe(Normal Activity)
 `;
 const seizureShapData = [
   { feature: "EEG_Signal_Variance", importance: 4.12 },
@@ -374,52 +374,106 @@ const abTestingFlow = `flowchart LR
   classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
   classDef safe fill:#14532d,stroke:#22c55e,color:#fff,stroke-width:2px
 
-  subgraph Input ["E-Commerce Traffic"]
+  subgraph Input [E-Commerce Traffic]
     direction TB
-    D(User Sessions) --> Split(Split: Control vs Treatment)
+    D(User Sessions) --> Split(Split Control vs Treatment)
   end
   class Input data
 
-  subgraph Processing ["Data Pipeline"]
+  subgraph Processing [Data Pipeline]
     direction TB
-    Clean(Clean & Filter Data) --> EDA(Exploratory Analysis)
+    Clean(Clean and Filter Data) --> EDA(Exploratory Analysis)
   end
   class Processing process
 
-  subgraph Analysis ["Statistical Testing"]
+  subgraph Analysis [Statistical Testing]
     direction TB
-    Hypothesis(Define Null & Alt) --> ZTest(Z-Test / Chi-Square)
+    Hypothesis(Define Null and Alt) --> ZTest(Z-Test or Chi-Square)
   end
   class Analysis model
 
-  subgraph Output ["Business Strategy"]
+  subgraph Output [Business Strategy]
     direction TB
     PVal{P-Value < 0.05?}
   end
   class Output eval
 
   Input --> Processing --> Analysis --> Output
-  Output -- Yes --> Winner[Deploy New Feature 🚀]
-  Output -- No --> Keep[Keep Old Version 🛑]
+  Output -- Yes --> Winner(Deploy New Feature)
+  Output -- No --> Keep(Keep Old Version)
 `;
 const abTestingImages = [
     "/PIC/abtest_step1.jpg", "/PIC/abtest_step2.jpg", "/PIC/abtest_step3.jpg",
     "/PIC/abtest_step4.jpg", "/PIC/abtest_step5.jpg"
 ];
 
+const asdPredictionFlow = `flowchart LR
+  classDef data fill:#0f172a,stroke:#334155,color:#fff,stroke-width:2px
+  classDef process fill:#1e293b,stroke:#0891b2,color:#fff,stroke-width:2px
+  classDef model fill:#312e81,stroke:#6366f1,color:#fff,stroke-width:2px
+  classDef eval fill:#064e3b,stroke:#10b981,color:#fff,stroke-width:2px
+  classDef alert fill:#0f766e,stroke:#22d3ee,color:#fff,stroke-width:2px
+  classDef safe fill:#334155,stroke:#94a3b8,color:#fff,stroke-width:2px
+
+  subgraph Input ["Behavioral & Demographic Data"]
+    direction TB
+    D["AQ-10 Screening Data"] --> Preprocess["Data Cleaning & Encoding"]
+  end
+  class Input data
+
+  subgraph Modeling ["Machine Learning Pipeline"]
+    direction TB
+    Ensemble["Ensemble Classifier"] --> CrossVal["Stratified Cross-Validation"]
+  end
+  class Modeling model
+
+  subgraph XAI ["Interpretability"]
+    direction TB
+    SHAP["SHAP Feature Importance"] --> Analysis["Behavioral Trait Analysis"]
+  end
+  class XAI process
+
+  subgraph Output ["Screening Result"]
+    direction TB
+    O{"Likelihood of ASD Traits?"}
+  end
+  class Output eval
+
+  Input --> Modeling --> XAI --> Output
+  Output -- "High" --> ASD["ASD Traits Identified"]
+  Output -- "Low" --> Neurotypical["Neurotypical Traits"]
+`;
+
+const asdShapData = [
+  { feature: "Social Communication Score", importance: 4.85 },
+  { feature: "Routine / Repetitive Behavior Index", importance: 3.62 },
+  { feature: "Sensory Sensitivity Level", importance: 2.95 },
+  { feature: "Attention to Detail / Hyperfocus", importance: 1.85 },
+  { feature: "Empathy / Theory of Mind Quotient", importance: 1.25 },
+];
+
+const asdImages = [
+    "/PIC/asd1.jpg", "/PIC/asd2.jpg", "/PIC/asd3.jpg", 
+    "/PIC/asd4.jpg", "/PIC/asd5.jpg",
+];
+
 
 // --- 2. REUSABLE, INTERACTIVE PROJECT CARD COMPONENT ---
 function ProjectCard({ title, description, link, outputImages, chartFlow, shapData, index = 0 }) {
+  const [showCharts, setShowCharts] = useState(false);
+
   if (!title) return null;
 
   return (
     <div 
-      className="group relative flex flex-col w-full mb-8 z-0 hover:z-30 animate-fade-in-up"
+      className="relative flex flex-col w-full mb-10 z-0 animate-fade-in-up"
       style={{ animationFillMode: 'both', animationDelay: `${index * 150}ms` }}
     >
-      <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] rounded-[1.5rem] p-6 md:p-8 flex flex-col overflow-hidden group/card shadow-[0_20px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(6,182,212,0.15)] hover:border-cyan-400/40 transition-all duration-700 hover:-translate-y-1.5">
+      {/* FULLY ANIMATED MAIN CARD (Lifts up and glows on hover) */}
+      <div className="z-20 relative bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/40 rounded-[1.5rem] p-6 md:p-8 flex flex-col overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(6,182,212,0.15)] transition-all duration-500 hover:-translate-y-2 group/card">
         
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/card:opacity-100 transition-all duration-700 ease-in-out group-hover/card:scale-125"
+        {/* Animated Glass Glow */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/card:opacity-100 transition-all duration-700 ease-in-out scale-110 group-hover/card:scale-100"
              style={{ background: 'radial-gradient(circle at 50% -20%, rgba(6,182,212,0.12), transparent 70%)' }} 
         />
 
@@ -434,7 +488,7 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
                 <div className="flex gap-4 pr-4">
                   {outputImages.map((img, idx) => (
                     <div key={`set1-${idx}`} className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[180px] relative rounded-lg overflow-hidden bg-[#050505]">
-                      <Image src={img} alt={`${title} preview ${idx}`} fill className="object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-in-out" priority={idx < 3} />
+                      <Image src={img} alt={`${title} preview ${idx}`} fill className="object-cover object-center transition-transform duration-700 ease-in-out hover:scale-105" priority={idx < 3} />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                     </div>
                   ))}
@@ -442,7 +496,7 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
                 <div className="flex gap-4 pr-4">
                   {outputImages.map((img, idx) => (
                     <div key={`set2-${idx}`} className="shrink-0 w-[280px] sm:w-[320px] md:w-[360px] h-[180px] relative rounded-lg overflow-hidden bg-[#050505]">
-                      <Image src={img} alt={`${title} duplicate ${idx}`} fill className="object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-in-out" priority={false} />
+                      <Image src={img} alt={`${title} duplicate ${idx}`} fill className="object-cover object-center transition-transform duration-700 ease-in-out hover:scale-105" priority={false} />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                     </div>
                   ))}
@@ -451,31 +505,50 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
             </div>
           )}
 
-          <p className="text-base md:text-lg text-[#888888] font-medium leading-relaxed mb-5">
+          <p className="text-base md:text-lg text-[#888888] font-medium leading-relaxed mb-6">
             {description}
           </p>
 
-          <a href={link} target="_blank" rel="noreferrer" className="group/link flex items-center gap-4 mt-auto pt-4 border-t border-[#1a1a1a] w-max">
-            <div className="w-10 h-10 rounded-full border border-[#262626] flex items-center justify-center bg-[#050505] group-hover/link:bg-cyan-400/10 group-hover/link:border-cyan-400 transition-all duration-300 group-hover/link:shadow-[0_0_10px_rgba(6,182,212,0.3)]">
-              <svg className="w-4 h-4 text-[#888888] group-hover/link:text-cyan-400 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </div>
-            <span className="text-[#888888] group-hover/link:text-cyan-400 text-sm font-medium transition-colors duration-300 tracking-wide">
-              View repo / demo
-            </span>
-          </a>
+          <div className="flex flex-wrap items-center justify-between gap-4 mt-auto pt-5 border-t border-[#1a1a1a]">
+            {/* Animated Link Button */}
+            <a href={link} target="_blank" rel="noreferrer" className="group/link flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full border border-[#262626] flex items-center justify-center bg-[#050505] group-hover/link:bg-cyan-400/10 group-hover/link:border-cyan-400 group-hover/link:-translate-y-1 transition-all duration-300 group-hover/link:shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+                <svg className="w-4 h-4 text-[#888888] group-hover/link:text-cyan-400 transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </div>
+              <span className="text-[#888888] group-hover/link:text-cyan-400 text-sm font-medium transition-colors tracking-wide">
+                View Repository
+              </span>
+            </a>
+
+            {/* Animated Toggle Button */}
+            {(chartFlow || shapData) && (
+              <button 
+                onClick={() => setShowCharts(!showCharts)}
+                className="group/btn flex items-center gap-3"
+              >
+                <span className={`text-sm font-medium transition-colors tracking-wide ${showCharts ? 'text-cyan-400' : 'text-[#888888] group-hover/btn:text-cyan-400'}`}>
+                  {showCharts ? 'Hide Architecture' : 'View Architecture'}
+                </span>
+                <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${showCharts ? 'bg-cyan-400/10 border-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.3)]' : 'bg-[#050505] border-[#262626] group-hover/btn:-translate-y-1 group-hover/btn:bg-cyan-400/10 group-hover/btn:border-cyan-400'}`}>
+                  <svg className={`w-4 h-4 transition-transform duration-300 ${showCharts ? 'text-cyan-400 rotate-180' : 'text-[#888888] group-hover/btn:text-cyan-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
-      {(chartFlow || shapData) && (
-        <div className="z-10 relative bg-[#050505]/95 backdrop-blur-sm rounded-b-3xl border border-t-0 border-[#1f1f1f] px-6 grid grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 -translate-y-16 group-hover:-translate-y-2 transition-all duration-700 ease-in-out origin-top">
-          <div className="overflow-hidden">
-            <div className="pt-10 pb-8 flex flex-col gap-8 w-full">
-              {chartFlow && (<Mermaid title="System Architecture Flow" description="Visualizing the end-to-end data and processing pipeline." chart={chartFlow} />)}
-              {shapData && (<ShapChart title="Model Interpretability (SHAP)" description="Analysis of feature importance impact on model predictions." data={shapData} />)}
-            </div>
+      {/* Expandable Chart Section */}
+      {(chartFlow || shapData) && showCharts && (
+        <div className="z-10 relative bg-[#050505] rounded-b-[1.5rem] border border-[#1f1f1f] border-t-0 px-6 py-8 -mt-4 pt-10 shadow-lg animate-fade-in-up">
+          <div className="flex flex-col gap-8 w-full">
+            {chartFlow && (<Mermaid title="System Architecture Flow" description="Visualizing the end-to-end data and processing pipeline." chart={chartFlow} />)}
+            {shapData && (<ShapChart title="Model Interpretability (SHAP)" description="Analysis of feature importance impact on model predictions." data={shapData} />)}
           </div>
         </div>
       )}
@@ -485,25 +558,25 @@ function ProjectCard({ title, description, link, outputImages, chartFlow, shapDa
 
 // --- 3. MAIN PAGE STRUCTURE ---
 export default function Projects() {
-  const [activeCat, setActiveCat] = useState('Data Science');
-  
-  // STATE: Page Load Animation Lock
+  // SET ARTIFICIAL INTELLIGENCE TO BE OPEN FIRST!
+  const [activeCat, setActiveCat] = useState('Artificial Intelligence');
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  // REORDERED CATEGORIES: AI on top, then Data Science, Web Scraping, Automation
   const CATEGORIES = [
-    {
-      id: 'Data Science',
-      title: 'Data Science',
-      desc: 'Exploring hidden patterns, statistical analysis, and predictive modeling from structured datasets.'
-    },
     {
       id: 'Artificial Intelligence',
       title: 'Artificial Intelligence',
       desc: 'Advanced deep learning, computer vision, and neural networks solving complex real-world problems.'
+    },
+    {
+      id: 'Data Science',
+      title: 'Data Science',
+      desc: 'Exploring hidden patterns, statistical analysis, and predictive modeling from structured datasets.'
     },
     {
       id: 'Web Scraping',
@@ -520,11 +593,17 @@ export default function Projects() {
   const allProjects = profile.projects.flatMap(p => [
     { id: 'factory', cat: 'Artificial Intelligence', title: p.title_8, desc: p.description_8, link: p.link_8, imgs: factoryGuardImages, flow: factoryGuardFlow, shap: factoryGuardShapData },
     { id: 'lung', cat: 'Artificial Intelligence', title: p.title_1, desc: p.description_1, link: p.link_1, imgs: lungCancerImages, flow: lungCancerFlow, shap: lungCancerShapData },
+    
+    // MOVED: Seizure Recognition is now in Artificial Intelligence
+    { id: 'seizure', cat: 'Artificial Intelligence', title: p.title_3, desc: p.description_3, link: p.link_3, imgs: seizureRecognitionImages, flow: seizureRecognitionFlow, shap: seizureShapData },
+    
+    // EXPLICIT ASD TITLE ADDED HERE
+    { id: 'asd', cat: 'Artificial Intelligence', title: "Autism Spectrum Disorder (ASD) Prediction using Machine Learning", desc: profile.publication[0]?.description_2 || "A behavioral and demographic data-driven machine learning approach to predicting traits associated with Autism Spectrum Disorder.", link: profile.publication[0]?.link_2 || "#", imgs: asdImages, flow: asdPredictionFlow, shap: asdShapData },
+
     { id: 'lili', cat: 'Automation', title: p.title_9, desc: p.description_9, link: p.link_9, imgs: liliAiImages, flow: liliAiFlow, shap: null },
     { id: 'trend', cat: 'Web Scraping', title: p.title_12, desc: p.description_12, link: p.link_12, imgs: trendScoutImages, flow: trendScoutFlow, shap: null },
     { id: 'taxi', cat: 'Data Science', title: p.title_10, desc: p.description_10, link: p.link_10, imgs: taxiTipImages, flow: taxiTipFlow, shap: taxiTipShapData },
     { id: 'hr', cat: 'Data Science', title: p.title_11, desc: p.description_11, link: p.link_11, imgs: hrAttritionImages, flow: hrAttritionFlow, shap: hrAttritionShapData },
-    { id: 'seizure', cat: 'Data Science', title: p.title_3, desc: p.description_3, link: p.link_3, imgs: seizureRecognitionImages, flow: seizureRecognitionFlow, shap: seizureShapData },
     { id: 'abtest', cat: 'Data Science', title: p.title_13, desc: p.description_13, link: p.link_13, imgs: abTestingImages, flow: abTestingFlow, shap: null }
   ]);
 
@@ -537,10 +616,9 @@ export default function Projects() {
         
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 relative items-start">
           
-          {/* ANIMATED SIDEBAR (Slides in from left) */}
+          {/* Animated Sidebar */}
           <aside className={`w-full lg:w-64 flex-shrink-0 lg:sticky lg:top-32 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 z-20 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-1000 ease-out transform ${isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
             {CATEGORIES.map((cat, index) => (
-              // WRAPPER: Staggered entrance delay completely separated from hover speed
               <div 
                 key={cat.id}
                 className={`transition-all duration-700 ease-out transform ${isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
@@ -572,7 +650,6 @@ export default function Projects() {
             ))}
           </aside>
 
-          {/* ANIMATED RIGHT CONTENT (Slides up from bottom) */}
           <div className={`flex-1 w-full min-w-0 lg:max-w-4xl transition-all duration-1000 ease-out transform ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: '300ms' }}>
             <div key={activeCat} className="animate-fade-in-up">
               
