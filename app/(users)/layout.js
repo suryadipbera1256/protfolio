@@ -14,11 +14,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// --- EXIM-LEVEL PROFESSIONAL METADATA ---
 export const metadata = {
-  title: 'Portfolio of Surya',
-  description: 'Personal portfolio website of Suryadip Bera, showcasing projects and skills in full-stack development and AI/ML.',
+  title: 'Suryadip Bera | Data Scientist & AI/ML Engineer',
+  description: 'Portfolio of Suryadip Bera, a passionate Data Scientist and AI Engineer specializing in machine learning, predictive modeling, and scalable data-driven solutions.',
+  keywords: ['Suryadip Bera', 'Data Scientist', 'AI Engineer', 'Machine Learning', 'Python', 'Portfolio', 'Bangalore'],
+  
+  // OpenGraph makes your link look beautiful with an image when shared on LinkedIn, WhatsApp, etc.
+  openGraph: {
+    title: 'Suryadip Bera | Data Scientist & AI Engineer',
+    description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
+    siteName: 'Suryadip Bera Portfolio',
+    images: [
+      {
+        url: '/PIC/MY_PHOTO_RB.png', // This will show up as the link preview image
+        width: 800,
+        height: 600,
+        alt: 'Suryadip Bera - Data Scientist',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  
   icons: {
-    icon: 'PIC/MY_PHOTO_RB.png',
+    icon: '/PIC/MY_PHOTO_RB.png', // Added leading slash to ensure the path always resolves correctly
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
@@ -27,10 +47,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* 1. bg-[#050505] locks the deep dark theme globally.
-        2. text-[#f4f4f5] sets the global text color to soft off-white.
-        3. antialiased makes the font look premium and sharp.
-      */}
       <body className={`${geistSans.variable} font-sans bg-neutral-950 text-[#f4f4f5] antialiased selection:bg-[#333] selection:text-white`} >
         <Navbar />
         {children}  

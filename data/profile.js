@@ -1,22 +1,18 @@
-
-
 export const profile = {
   name: "Suryadip Bera",
   headline: "Data Scientist | AI Enthusiast",
   email: "suryadip230@gmail.com",
   resumeUrl: "/resume.pdf",
-  aboutMe:"I am Suryadip Bera, a passionate Data Scientist and AI enthusiast with a strong foundation in computer science and engineering. I hold a B.Tech degree from JIS University, where I honed my skills in data analysis, machine learning, and artificial intelligence. I am dedicated to leveraging data-driven insights to solve complex problems and drive innovation. With a keen interest in the latest advancements in AI, I continuously seek opportunities to expand my knowledge and contribute to impactful projects in the field.",
+  aboutMe: "I am Suryadip Bera, a passionate Data Scientist and AI enthusiast with a strong foundation in computer science and engineering. I hold a B.Tech degree from JIS University, where I honed my skills in data analysis, machine learning, and artificial intelligence. I am dedicated to leveraging data-driven insights to solve complex problems and drive innovation. With a keen interest in the latest advancements in AI, I continuously seek opportunities to expand my knowledge and contribute to impactful projects in the field.",
   
   links: {
-
     linkedin: "https://www.linkedin.com/in/suryadip-bera-0689872ba/",
     github: "https://github.com/suryadipbera1256",
     leetcode: "https://leetcode.com/u/suryadip1256/",
     facebook: "https://www.facebook.com/share/1HMMggdqkN/?mibextid=wwXIfr"
   },
-   phone: "+91 9547197037",
+  phone: "+91 9547197037",
   
-  // Add arrays expected by About page
   education: [
     {
       level: 'B.Tech',
@@ -27,9 +23,10 @@ export const profile = {
     }
   ],
 
-  skills: ['JavaScript', 'React', 'Next.js', 'Node.js'],
-  roles: ['Full-Stack Developer', 'Open Source Contributor'],
-  achievement: ['Built portfolio website', 'Placed top X% in Y contest'],
+  // Updated to reflect your actual main skills
+  skills: ['Python', 'SQL', 'Machine Learning', 'Deep Learning'],
+  roles: ['Data Scientist', 'AI/ML Engineer'],
+  achievement: ['First Position in Innovative Project Competition', 'Published Research in RISCC'],
 
   projects: [
     {
@@ -46,19 +43,19 @@ export const profile = {
       link_3: 'https://github.com/suryadipbera1256/Epileptic-Seizure-Recognition',
 
       title_4: 'AI chatbot built with Bolt database',
-      description_4: 'An AI chatbot built with Bolt.new combines natural language processing and persistent memory using OpenAI’s Assistant API and Bolt’s auto-generated backend. It enables: - Conversational memory: Tracks user sessions and context across interactions.',
+      description_4: 'An AI chatbot built with Bolt.new combines natural language processing and persistent memory using OpenAI’s Assistant API and Bolt’s auto-generated backend. It enables conversational memory, tracking user sessions and context across interactions.',
       link_4: 'https://website-personal-ai-vf35.bolt.host/',
 
       title_5: 'Quote-Guessing-Game-using-Web-Scraping',
-      description_5: 'we will scrape a quote and details of the author from any web-site using python framework called BeautifulSoup and develop a guessing game using different data structures and algorithm.',
+      description_5: 'Scrapes a quote and details of the author from any website using the Python framework BeautifulSoup, developing a guessing game using different data structures and algorithms.',
       link_5: 'https://suryaquoteguessinggame.streamlit.app/',
 
       title_6: 'Tic-Tac-Toe Game',
-      description_6: 'This project is a basic implementation of the classic Tic-Tac-Toe game played in the command line. The computer plays as "X" and always starts by placing its first move in the center of the board. The user plays as "O" and inputs their moves by selecting a numbered square on the board.',
+      description_6: 'A basic implementation of the classic Tic-Tac-Toe game played in the command line. The computer plays as "X" and always starts by placing its first move in the center of the board. The user plays as "O" and inputs their moves by selecting a numbered square.',
       link_6: 'https://github.com/suryadipbera1256/Tic-Tac-Toe-using-python?tab=readme-ov-file',
 
       title_7: 'Library-Management-System',
-      description_7: 'The Library Management System project is a web application built using Flask and Flask-SQLAlchemy that allows users to manage a collection of books. It provides features to add, update, delete, and search for books by title or author.',
+      description_7: 'A web application built using Flask and Flask-SQLAlchemy that allows users to manage a collection of books. It provides features to add, update, delete, and search for books by title or author.',
       link_7: 'https://github.com/suryadipbera1256/Library-Management-System',
 
       title_8: 'IOT Predictive Maintenance Engine (FactoryGuard AI)',
@@ -70,7 +67,7 @@ export const profile = {
       link_9: 'https://github.com/suryadipbera1256/PersonalCare-LLM-POC-Chatbot.git',
 
       title_10: 'Predictive Modeling for Customer Tipping Behavior in NYC Taxis',
-      description_10: 'This project analyzes the New York City Taxi & Limousine Commission (TLC) dataset to understand and predict customer tipping behavior using machine learning. Using more than 50,000+ taxi trip records, the project identifies key factors influencing tips and builds high-performing classification models to assist taxi businesses with decision-making and improve customer service.',
+      description_10: 'Analyzes the NYC TLC dataset to understand and predict customer tipping behavior. Using 50,000+ taxi trip records, the project identifies key factors influencing tips and builds classification models to assist businesses with decision-making.',
       link_10: 'https://github.com/suryadipbera1256/Predictive-Modeling-for-Customer-Tipping-Behavior-in-NYC-Taxis.git',
 
       title_11: 'Employee Attrition Prediction for HR-Analytics',
@@ -78,23 +75,23 @@ export const profile = {
       link_11: 'https://github.com/suryadipbera1256/Employee-Attrition-Prediction-for-HR-Analytics---Salifort-Motors.git',
 
       title_12: 'TrendScout E-Commerce Intelligence Collector',
-      description_12: 'An automated data extraction tool designed to gather real-time competitive intelligence from major e-commerce platforms (Myntra). It systematically navigates product listings to harvest critical data points-including names, pricing, link- transforming unstructured web content into structured datasets (CSV) for market analysis and trend forecasting.',
+      description_12: 'An automated data extraction tool designed to gather real-time competitive intelligence from major e-commerce platforms. It systematically navigates product listings to harvest critical data points, transforming unstructured web content into structured datasets for market analysis.',
       link_12: 'https://github.com/suryadipbera1256/TrendScout-E-Commerce-Intelligence-Collector.git',
 
       title_13: 'The Conversion Catalyst: A/B Testing for E-Commerce Strategy Optimization',
-      description_13: 'This project simulates a real-world product experiment for an e-commerce platform facing high cart abandonment rates. The objective was to determine if streamlining the checkout process into a single "One-Click" action would drive higher sales volume without lowering the average spend per user.',
+      description_13: 'Simulates a real-world product experiment for an e-commerce platform facing high cart abandonment rates. The objective was to determine if streamlining the checkout process into a single "One-Click" action would drive higher sales volume without lowering average spend.',
       link_13: 'https://github.com/suryadipbera1256/The-Conversion-Catalyst-Optimizing-E-Commerce-Strategy-via-A-B-Testing.git',
 
     }
   ],
-    publication: [
+  publication: [
     {
-      title_1: 'paper publication in drug classification',
-      description_1: 'Co-author(s) of the paper entitled "Machine Learning Approaches in Drug Classification from biomarkers of Epileptic Seizure',
+      title_1: 'Paper Publication in Drug Classification',
+      description_1: 'Co-author(s) of the paper entitled "Machine Learning Approaches in Drug Classification from biomarkers of Epileptic Seizure".',
       link_1: 'https://drive.google.com/file/d/1M6GBqRyozCkHEt5xmdH4F96pu631mDpw/view?pli=1',
 
       title_2: 'Atizon',
-      description_2: 'Recently not publish\]',
+      description_2: 'Research and implementation details are currently under development and review.',
       link_2: 'https://github.com/suryadipbera1256/Lung-Cancer-Detection-Using-CNN'
     }
   ],
@@ -102,11 +99,11 @@ export const profile = {
   certifications: [
     {
       title_1: 'Python Certification',
-      description_1: 'Completed a professional certification in Python programming, showcasing strong proficiency in writing efficient, modular scripts and developing scalable applications and applied best practices in debugging, testing, and performance optimization.',
+      description_1: 'Completed a professional certification in Python programming, showcasing strong proficiency in writing efficient, modular scripts and developing scalable applications while applying best practices in debugging and performance optimization.',
       link_1: 'https://drive.google.com/file/d/1Rw9te_FMrsoihr4nj7-BqYFhpcefWktk/view',
 
       title_2: 'Data Science Math Skills Certification',
-      description_2: 'Earned a certification in Data Science Math Skills, covering essential mathematical foundations for data analysis and machine learning, including linear algebra, probability, statistics, data visualization and apply quantitative reasoning to datasets.',
+      description_2: 'Earned a certification covering essential mathematical foundations for data analysis and machine learning, including linear algebra, probability, statistics, and quantitative reasoning.',
       link_2: 'https://www.coursera.org/account/accomplishments/certificate/87N37SR84V39',
 
       title_3: 'Build a Full Website using WordPress Certification',
@@ -114,7 +111,7 @@ export const profile = {
       link_3: 'https://www.coursera.org/account/accomplishments/certificate/59K404BAQQO8',
 
       title_4: 'IBM Machine Learning',
-      description_4: 'Gemini said\nThis IBM Professional Certificate validates mastery in supervised, unsupervised, deep, and reinforcement learning, covering time series, survival analysis, and advanced algorithmic implementation.',
+      description_4: 'This IBM Professional Certificate validates mastery in supervised, unsupervised, deep, and reinforcement learning, covering time series, survival analysis, and advanced algorithmic implementation.',
       link_4: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/Q0CD1YHLAQXY',
 
       title_5: 'Google Advanced Data Analytics',
@@ -130,18 +127,15 @@ export const profile = {
       link_1: 'https://drive.google.com/file/d/1ZUkRz_gbMPOf6j5MF9nxUx9_xs258ZZi/view',
 
       title_2: 'Paper presentation in RISCC conference',
-      description_2: 'Presented original research on drug classification at the RISCC Conference, showcasing analytical techniques in machine learning for biomedical data. Demonstrated the use of supervised learning models to categorize pharmaceutical.',
+      description_2: 'Presented original research on drug classification at the RISCC Conference, showcasing analytical techniques in machine learning for biomedical data. Demonstrated the use of supervised learning models to categorize pharmaceuticals.',
       link_2: 'https://www.example.com/coding-contest',
-
-
-
     }
   ],
 
   awards: [
     {
       title_1: 'Innovation Award 2025',
-      description_1: 'Co-author(s) of the paper entitled "Machine Learning Approaches in Drug Classification from biomarkers of Epileptic Seizure in the Innovative Project Competition, organized by the Institutions Innovation Council (IC) Cell of JIS University"',
+      description_1: 'Co-author(s) of the paper entitled "Machine Learning Approaches in Drug Classification from biomarkers of Epileptic Seizure" in the Innovative Project Competition, organized by the Institution\'s Innovation Council (IIC) Cell of JIS University.',
       link_1: 'https://drive.google.com/drive/folders/1Fj6_huXZ4KI5SkF_wHcXdwqxXMSMS1b2',
     }
   ]
