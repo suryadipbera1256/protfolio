@@ -150,6 +150,7 @@ const lungCancerImages = [
     "/PIC/lcd4.jpg", "/PIC/lcd5.jpg", "/PIC/lcd6.jpg",
 ];
 
+// --- UPDATED TRENDSCOUT FLOWCHART ---
 const trendScoutFlow = `flowchart LR
   classDef source fill:#0f172a,stroke:#334155,color:#fff,stroke-width:2px
   classDef crawler fill:#1e293b,stroke:#0891b2,color:#fff,stroke-width:2px
@@ -157,24 +158,25 @@ const trendScoutFlow = `flowchart LR
   classDef storage fill:#064e3b,stroke:#10b981,color:#fff,stroke-width:2px
 
   subgraph Target ["🌐 E-Commerce Target"]
-    W(Myntra Website)
+    W(Myntra Website\\nDynamic SPA)
   end
   class Target source
 
-  subgraph ScrapingEngine ["Selenium Crawler"]
+  subgraph ScrapingEngine ["Selenium Crawler & Anti-Bot"]
     direction TB
-    S(Init WebDriver) --> DOM(Scroll & Load Dynamic DOM)
+    S(Init WebDriver\\nCustom User-Agent) --> Wait(Explicit Waits)
+    Wait --> DOM(Simulated Scrolling\\nTrigger Lazy Loading)
   end
   class ScrapingEngine crawler
 
-  subgraph Parser ["Data Parsing"]
+  subgraph Parser ["Data Parsing Pipeline"]
     direction TB
-    HTML(Fetch HTML Source) --> Extract(Extract Brands, Prices, & Ratings)
+    HTML(Fetch 'product-base' Elements) --> Extract(Extract Brands, Names, Links & Prices)
   end
   class Parser parser
 
   subgraph Output ["💾 Intelligence Storage"]
-    CSV[(myntra_lipsticks.csv)]
+    DF(Pandas DataFrame) --> CSV[(myntra_lipsticks.csv)]
   end
   class Output storage
 
@@ -184,42 +186,43 @@ const trendScoutImages = [
     "/PIC/ts1.jpg", "/PIC/ts2.jpg", "/PIC/ts3.jpg", "/PIC/ts4.jpg", "/PIC/ts5.jpg",
 ];
 
+// --- UPDATED PERSONAL CARE LLM POC FLOWCHART ---
 const liliAiFlow = `flowchart LR
   classDef frontend fill:#0f172a,stroke:#334155,color:#fff,stroke-width:2px
   classDef backend fill:#1e293b,stroke:#0891b2,color:#fff,stroke-width:2px
   classDef ai fill:#312e81,stroke:#6366f1,color:#fff,stroke-width:2px
   classDef db fill:#064e3b,stroke:#10b981,color:#fff,stroke-width:2px
-  classDef alert fill:#7f1d1d,stroke:#ef4444,color:#fff,stroke-width:2px
 
-  subgraph UI ["Frontend"]
-    S(Streamlit App)
+  subgraph UI ["🖥️ User Interface"]
+    S(Streamlit Web App)
   end
   class UI frontend
 
   subgraph Backend ["⚙️ App Logic & Guardrails"]
     direction TB
-    KB[(products.json)] -. Context .-> Prompt(System Instructions)
-    Guard{Check Rule:<br/>Returns/Offers?}
+    Input(User Query) --> Guard{Rule Check:\\nReturns/Offers?}
+    Guard -- Pass --> Context[Inject Product Data\\nfrom JSON]
+    Context --> Prompt(Format System Instructions)
   end
   class Backend backend
 
-  subgraph LLM ["AI Engine"]
-    Llama(Groq API:<br/>Llama-3.3-70b)
+  subgraph LLM ["🧠 AI Engine"]
+    Llama(Groq API:\\nLlama-3.3-70b)
   end
   class LLM ai
 
-  subgraph DB ["Audit Logging"]
-    PG[(PostgreSQL)]
+  subgraph DB ["💾 Audit Logging"]
+    PG[(PostgreSQL Database\\nSession History)]
   end
   class DB db
 
-  UI --> Guard
-  Guard -- Pass --> Prompt
+  UI --> Input
   Prompt --> Llama
-  Llama --> UI
-  Guard -- Triggered --> Handoff[Support Handoff]
+  Llama --> Response(AI Response)
+  Response --> UI
+  Guard -- Triggered --> Handoff[Human Support Handoff]
   Handoff --> UI
-  UI -. Log Session .-> PG
+  UI -. Logs Interaction .-> PG
 `;
 const liliAiImages = [
     "/PIC/la1.jpg", "/PIC/la2.jpg", "/PIC/la3.jpg", "/PIC/la4.jpg", "/PIC/la5.jpg",

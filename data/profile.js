@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export const profile = {
   name: "Suryadip Bera",
   headline: "Data Scientist | AI Enthusiast",
@@ -98,6 +100,15 @@ export const profile = {
 
   certifications: [
     {
+      title_5: 'Specialization in Data Analytics',
+      description_5: 'This Google Advanced Data Analytics Certificate validates expertise in predictive modeling, statistics, and machine learning, preparing professionals to extract complex insights from datasets.',
+      link_5: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/JI61DR0VHAH1',
+
+      title_4: 'Specialization in Machine Learning',
+      description_4: 'This IBM Professional Certificate validates mastery in supervised, unsupervised, deep, and reinforcement learning, covering time series, survival analysis, and advanced algorithmic implementation.',
+      link_4: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/Q0CD1YHLAQXY',
+
+      
       title_1: 'Python Certification',
       description_1: 'Completed a professional certification in Python programming, showcasing strong proficiency in writing efficient, modular scripts and developing scalable applications while applying best practices in debugging and performance optimization.',
       link_1: 'https://drive.google.com/file/d/1Rw9te_FMrsoihr4nj7-BqYFhpcefWktk/view',
@@ -106,29 +117,71 @@ export const profile = {
       description_2: 'Earned a certification covering essential mathematical foundations for data analysis and machine learning, including linear algebra, probability, statistics, and quantitative reasoning.',
       link_2: 'https://www.coursera.org/account/accomplishments/certificate/87N37SR84V39',
 
-      title_3: 'Build a Full Website using WordPress Certification',
+      title_3: 'WordPress Certification',
       description_3: 'Earned a certification in WordPress development, with a strong emphasis on building, customizing, and deploying responsive websites using the WordPress ecosystem.',
       link_3: 'https://www.coursera.org/account/accomplishments/certificate/59K404BAQQO8',
 
-      title_4: 'IBM Machine Learning',
-      description_4: 'This IBM Professional Certificate validates mastery in supervised, unsupervised, deep, and reinforcement learning, covering time series, survival analysis, and advanced algorithmic implementation.',
-      link_4: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/Q0CD1YHLAQXY',
+      title_6: 'Python Certification',
+      description_6: 'Completed a professional certification in Python programming, showcasing strong proficiency in writing efficient, modular scripts and developing scalable applications while applying best practices in debugging and performance optimization.',
+      link_6: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/7KZSWV3GWJQ0',
 
-      title_5: 'Google Advanced Data Analytics',
-      description_5: 'This Google Advanced Data Analytics Certificate validates expertise in predictive modeling, statistics, and machine learning, preparing professionals to extract complex insights from datasets.',
-      link_5: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/JI61DR0VHAH1',
+      title_7: 'The Power of Statistics',
+      description_7: 'Completed a professional certification in The Power of Statistics, showcasing strong proficiency in understanding and applying statistical concepts to real-world data analysis.',
+      link_7: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/Z9GYFYRGYNL5',
+
+      title_8: 'Regression Analysis',
+      description_8: 'Completed a professional certification in Regression Analysis, showcasing strong proficiency in building and interpreting regression models for predictive analytics.',
+      link_8: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/1LJNEGDJFJVX',
+
+      title_9: 'Machine Learning',
+      description_9: 'Completed a professional certification in The Nuts and Bolts of Machine Learning, showcasing strong proficiency in understanding and applying machine learning concepts to real-world problems.',
+      link_9: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/9W7ZRE6RHMNR',
+
+      title_10: 'Deep and Reinforcement Learning',
+      description_10: 'Completed a professional certification in Deep Learning and Reinforcement Learning, showcasing strong proficiency in building and training neural networks and reinforcement learning models.',
+      link_10: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/OUPUBX4GQ4WG',
+
+      title_11: 'EDA for Machine Learning',
+      description_11: 'Completed a professional certification in Exploratory Data Analysis for Machine Learning, showcasing strong proficiency in analyzing and visualizing data to extract meaningful insights.',
+      link_11: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/KEV68J9VU7A8',
+
+      title_12: 'Go Beyond the Numbers',
+      description_12: 'Completed a professional certification in Go Beyond the Numbers, showcasing strong proficiency in interpreting data and translating insights into actionable business strategies.',
+      link_12: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/6ITZTIZAZJG1',
+
+      title_13: 'Supervised ML(Regression)',
+      description_13: 'Completed a professional certification in Supervised Machine Learning (Regression), showcasing strong proficiency in building and evaluating regression models for predictive analytics.',
+      link_13: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/AMIDPND9P932',
+
+      title_14: 'Supervised ML(Classification)',
+      description_14: 'Completed a professional certification in Supervised Machine Learning (Classification), showcasing strong proficiency in building and evaluating classification models for predictive analytics.',
+      link_14: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/3ILAF14G6FHE',
+
+      title_15: 'Google Data Analytics Capstone',
+      description_15: '',
+      link_15: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/MPLUU208WAJ0',
+
+      title_16: 'IBM Machine Learning Capstone',
+      description_16: '',
+      link_16: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/12JJC3AI4D91',
+      
+      title_17: 'Unsupervised Machine Learning',
+      description_17: 'Completed a professional certification in Unsupervised Machine Learning, showcasing strong proficiency in clustering and dimensionality reduction techniques.',
+      link_17: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/OG38BQU07E5D',
+
+     
     }
   ],
 
   achievements: [
     {
-      title_1: 'First Position in the Innovative Project Competition',
+      title_1: 'Innovative Project Competition',
       description_1: 'Secured First Position in the Innovative Project Competition organized by the Institution’s Innovation Council (IIC) Cell of JIS University, recognized for presenting a forward-thinking solution with strong technical execution.',
-      link_1: 'https://drive.google.com/file/d/1ZUkRz_gbMPOf6j5MF9nxUx9_xs258ZZi/view',
+      link_1: 'https://drive.google.com/file/d/1ZUkRz_gbMPOf6j5MF9nxUx9_xs258ZZi/view?usp=sharing',
 
-      title_2: 'Paper presentation in RISCC conference',
+      title_2: 'Paper presentation in RISCC ',
       description_2: 'Presented original research on drug classification at the RISCC Conference, showcasing analytical techniques in machine learning for biomedical data. Demonstrated the use of supervised learning models to categorize pharmaceuticals.',
-      link_2: 'https://www.example.com/coding-contest',
+      link_2: 'https://drive.google.com/file/d/1M6GBqRyozCkHEt5xmdH4F96pu631mDpw/view?usp=sharing',
     }
   ],
 

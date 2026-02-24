@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 
 // --- EXIM-LEVEL PROFESSIONAL METADATA ---
 export const metadata = {
+  // FIX: This tells Next.js exactly where your images are hosted!
+  // Change this to your real Vercel or custom domain once you deploy your site.
+  metadataBase: new URL('https://suryadip-portfolio.vercel.app'), 
+  
   title: 'Suryadip Bera | Data Scientist & AI/ML Engineer',
   description: 'Portfolio of Suryadip Bera, a passionate Data Scientist and AI Engineer specializing in machine learning, predictive modeling, and scalable data-driven solutions.',
   keywords: ['Suryadip Bera', 'Data Scientist', 'AI Engineer', 'Machine Learning', 'Python', 'Portfolio', 'Bangalore'],
@@ -27,7 +31,7 @@ export const metadata = {
     siteName: 'Suryadip Bera Portfolio',
     images: [
       {
-        url: '/PIC/MY_PHOTO_RB.png', // This will show up as the link preview image
+        url: '/PIC/MY_PHOTO_RB.png', // Next.js will now automatically combine this with metadataBase!
         width: 800,
         height: 600,
         alt: 'Suryadip Bera - Data Scientist',
@@ -38,7 +42,7 @@ export const metadata = {
   },
   
   icons: {
-    icon: '/PIC/MY_PHOTO_RB.png', // Added leading slash to ensure the path always resolves correctly
+    icon: '/PIC/MY_PHOTO_RB.png',
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },

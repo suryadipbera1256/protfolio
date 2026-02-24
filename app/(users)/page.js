@@ -183,7 +183,7 @@ export default function Home() {
     gallery: false
   });
 
-  // FIXED: Scroll Observer configured to ONLY trigger when you actually scroll down!
+  // Scroll Observer configured to ONLY trigger when you actually scroll down!
   useEffect(() => {
     // Instantly trigger hero animations when page loads
     setVisible(prev => ({ ...prev, hero: true }));
@@ -223,14 +223,27 @@ export default function Home() {
   }, [visible.stats]);
 
   const certificationsData = [
-    { title: profile.certifications[0].title_4, link: profile.certifications[0].link_4, provider: "IBM / Coursera", imageSrc: "/PIC/CER_2.jpg", glowColor: "rgba(56, 189, 248, 0.15)" },
-    { title: profile.certifications[0].title_5, link: profile.certifications[0].link_5, provider: "Google / Coursera", imageSrc: "/PIC/CER_3.jpg", glowColor: "rgba(52, 211, 153, 0.15)" },
-    { title: profile.certifications[0].title_1, link: profile.certifications[0].link_1, provider: "Cisco", imageSrc: "/PIC/CER_1.jpg", glowColor: "rgba(99, 102, 241, 0.15)" },
+    { title: profile.certifications[0].title_4, link: profile.certifications[0].link_4, provider: "IBM", imageSrc: "/PIC/IBM Machine Learning.jpg", glowColor: "rgba(56, 189, 248, 0.15)" },
+    { title: profile.certifications[0].title_5, link: profile.certifications[0].link_5, provider: "Google", imageSrc: "/PIC/Google Advanced Data Analytics.jpg", glowColor: "rgba(52, 211, 153, 0.15)" },
+    { title: profile.achievements[0].title_2, link: profile.achievements[0].link_2, provider: "RISCC Conference", imageSrc: "/PIC/RICSS.jpg", glowColor: "rgba(167, 139, 250, 0.15)" },
+    { title: profile.certifications[0].title_1, link: profile.certifications[0].link_1, provider: "Cisco", imageSrc: "/PIC/cisco.png", glowColor: "rgba(99, 102, 241, 0.15)" },
+    { title: profile.certifications[0].title_6, link: profile.certifications[0].link_6, provider: "Google", imageSrc: "/PIC/googlepython.jpg", glowColor: "rgba(250, 204, 21, 0.15)" },
+    { title: profile.certifications[0].title_7, link: profile.certifications[0].link_7, provider: "Google", imageSrc: "/PIC/The Power of Statistics.jpg", glowColor: "rgba(250, 204, 21, 0.15)" },
+    { title: profile.certifications[0].title_8, link: profile.certifications[0].link_8, provider: "Google", imageSrc: "/PIC/Googke Regression Analysis.jpg", glowColor: "rgba(250, 204, 21, 0.15)" },
+    { title: profile.certifications[0].title_9, link: profile.certifications[0].link_9, provider: "Google", imageSrc: "/PIC/Google The Nuts and Bolts of Machine Learning.jpg", glowColor: "rgba(250, 204, 21, 0.15)" },
+    { title: profile.certifications[0].title_10, link: profile.certifications[0].link_10, provider: "IBM", imageSrc: "/PIC/IBM Deep Learning and Reinforcement Learning.jpg", glowColor: "rgba(250, 204, 21, 0.15)" },
+    { title: profile.certifications[0].title_11, link: profile.certifications[0].link_11, provider: "IBM", imageSrc: "/PIC/EDA for Machine Learning.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
+    { title: profile.certifications[0].title_12, link: profile.certifications[0].link_12, provider: "Google", imageSrc: "/PIC/Beyond the Numbers.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
+    { title: profile.certifications[0].title_13, link: profile.certifications[0].link_13, provider: "IBM", imageSrc: "/PIC/IBM Supervised Machine Learning Regression.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
+    { title: profile.certifications[0].title_14, link: profile.certifications[0].link_14, provider: "IBM", imageSrc: "/PIC/Supervised Machine Learning  Classification.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
+    { title: profile.certifications[0].title_15, link: profile.certifications[0].link_15, provider: "Google", imageSrc: "/PIC/Google Advanced Data Analytics Capstone.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
+    { title: profile.certifications[0].title_16, link: profile.certifications[0].link_16, provider: "IBM", imageSrc: "/PIC/Machine Learning Capstone.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
+    { title: profile.certifications[0].title_17, link: profile.certifications[0].link_17, provider: "IBM", imageSrc: "/PIC/Unsupervised Machine Learning.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
     { title: profile.certifications[0].title_2, link: profile.certifications[0].link_2, provider: "Duke / Coursera", imageSrc: "/PIC/DUKE.jpg", glowColor: "rgba(250, 204, 21, 0.15)" },
     { title: profile.certifications[0].title_3, link: profile.certifications[0].link_3, provider: "Coursera", imageSrc: "/PIC/WORDPRESS.jpg", glowColor: "rgba(167, 139, 250, 0.15)" },
     { title: profile.awards[0].title_1, link: profile.awards[0].link_1, provider: "JIS Award", imageSrc: "/PIC/AWARD.jpg", glowColor: "rgba(244, 63, 94, 0.15)" },
     { title: profile.achievements[0].title_1, link: profile.achievements[0].link_1, provider: "JIS Achievement", imageSrc: "/PIC/CER_1.jpg", glowColor: "rgba(56, 189, 248, 0.15)" },
-    { title: profile.achievements[0].title_2, link: profile.achievements[0].link_2, provider: "RISCC Conference", imageSrc: "/PIC/RICSS.jpg", glowColor: "rgba(167, 139, 250, 0.15)" }
+    
   ];
 
   const photosData = [
@@ -307,7 +320,6 @@ export default function Home() {
         </div>
 
         {/* --- SCROLL-ACTIVATED 3 STATS BOXES --- */}
-        {/* Fixed: These will beautifully slide up only when you scroll to them! */}
         <div id="stats" className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 perspective-[1000px]">
           
           <div className={`group relative flex flex-col justify-between p-8 md:p-10 rounded-[2rem] bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/50 transition-all duration-1000 ease-out hover:shadow-[0_15px_40px_rgba(6,182,212,0.15)] hover:-translate-y-2 overflow-hidden z-10 transform ${visible.stats ? 'opacity-100 translate-y-0 rotate-x-0' : 'opacity-0 translate-y-20 rotate-x-6'}`} style={{ transitionDelay: '100ms' }}>
@@ -316,7 +328,7 @@ export default function Home() {
               <h3 className="text-4xl md:text-5xl font-bold text-cyan-400 tracking-tight group-hover:scale-110 origin-left transition-transform duration-500">{projectCount}+</h3>
               <svg className="w-8 h-8 text-[#333] group-hover:text-cyan-400/60 transition-colors duration-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
             </div>
-            <p className="text-[#a1a1aa] text-sm md:text-base font-medium leading-relaxed relative z-10 group-hover:text-[#f4f4f5] transition-colors duration-300">Advanced Projects<br/>(Machine Learning & Data Extraction)</p>
+            <p className="text-[#a1a1aa] text-sm md:text-base font-medium leading-relaxed relative z-10 group-hover:text-[#f4f4f5] transition-colors duration-300">Advanced Projects<br/>(Data Sciene & Artificial intelligence)</p>
           </div>
 
           <div className={`group relative flex flex-col justify-between p-8 md:p-10 rounded-[2rem] bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/50 transition-all duration-1000 ease-out hover:shadow-[0_15px_40px_rgba(6,182,212,0.15)] hover:-translate-y-2 overflow-hidden z-10 transform ${visible.stats ? 'opacity-100 translate-y-0 rotate-x-0' : 'opacity-0 translate-y-20 rotate-x-6'}`} style={{ transitionDelay: '300ms' }}>
@@ -325,7 +337,7 @@ export default function Home() {
               <h3 className="text-2xl md:text-3xl font-bold text-[#f4f4f5] tracking-tight group-hover:text-cyan-400 transition-colors duration-500">Core Stack</h3>
               <svg className="w-8 h-8 text-[#333] group-hover:text-cyan-400/60 transition-colors duration-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
             </div>
-            <p className="text-[#a1a1aa] text-sm md:text-base font-medium leading-relaxed relative z-10 group-hover:text-[#f4f4f5] transition-colors duration-300">Python, SQL, XGBoost, Selenium</p>
+            <p className="text-[#a1a1aa] text-sm md:text-base font-medium leading-relaxed relative z-10 group-hover:text-[#f4f4f5] transition-colors duration-300">Python-SQL-Data Science <br/> (AI Automation Devlopment) </p>
           </div>
 
           <div className={`group relative flex flex-col justify-between p-8 md:p-10 rounded-[2rem] bg-[#0a0a0a] border border-[#1f1f1f] hover:border-cyan-400/50 transition-all duration-1000 ease-out hover:shadow-[0_15px_40px_rgba(6,182,212,0.15)] hover:-translate-y-2 overflow-hidden z-10 transform ${visible.stats ? 'opacity-100 translate-y-0 rotate-x-0' : 'opacity-0 translate-y-20 rotate-x-6'}`} style={{ transitionDelay: '500ms' }}>
@@ -340,13 +352,12 @@ export default function Home() {
               </div>
 
             </div>
-            <p className="text-[#a1a1aa] text-sm md:text-base font-medium leading-relaxed relative z-10 group-hover:text-[#f4f4f5] transition-colors duration-300">Available for Walk-ins &<br/>Full-Time Roles</p>
+            <p className="text-[#a1a1aa] text-sm md:text-base font-medium leading-relaxed relative z-10 group-hover:text-[#f4f4f5] transition-colors duration-300">Available for<br/>(Walk-ins & Full-Time Roles)</p>
           </div>
         </div>
       </section>
 
       {/* --- SEPARATE SECTION 1: CERTIFICATIONS --- */}
-      {/* Fixed: Slides up beautifully when scrolled into view! */}
       <section id="certs" className={`relative w-full max-w-[85rem] mx-auto px-6 md:px-12 lg:px-16 pb-16 z-10 transition-all duration-1000 ease-out transform ${visible.certs ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-24'}`}>
         <div className="mb-4 ml-2">
           <h2 className="inline-block px-4 py-2 bg-[#141414] border border-[#262626] rounded-full text-cyan-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
