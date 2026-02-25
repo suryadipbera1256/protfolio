@@ -15,23 +15,23 @@ const geistMono = Geist_Mono({
 });
 
 // --- EXIM-LEVEL PROFESSIONAL METADATA ---
+// --- EXIM-LEVEL PROFESSIONAL METADATA ---
 export const metadata = {
-  // FIX: This tells Next.js exactly where your images are hosted!
-  // Change this to your real Vercel or custom domain once you deploy your site.
-  metadataBase: new URL('https://suryadip-portfolio.vercel.app'), 
+  // ⚠️ IMPORTANT: Change this to your exact, live Vercel domain!
+  // Example: 'https://suryadip-portfolio.vercel.app'
+  metadataBase: new URL('https://YOUR-LIVE-VERCEL-LINK.vercel.app'), 
   
   title: 'Suryadip Bera | Data Scientist & AI/ML Engineer',
   description: 'Portfolio of Suryadip Bera, a passionate Data Scientist and AI Engineer specializing in machine learning, predictive modeling, and scalable data-driven solutions.',
   keywords: ['Suryadip Bera', 'Data Scientist', 'AI Engineer', 'Machine Learning', 'Python', 'Portfolio', 'Bangalore'],
   
-  // OpenGraph makes your link look beautiful with an image when shared on LinkedIn, WhatsApp, etc.
   openGraph: {
     title: 'Suryadip Bera | Data Scientist & AI Engineer',
     description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
     siteName: 'Suryadip Bera Portfolio',
     images: [
       {
-        url: 'PIC/opengraph-image.png', // Next.js will fetch this from your public folder!
+        url: '/PIC/opengraph-image.png', // FIX: Pointing exactly to your PNG in the PIC folder
         width: 1200,
         height: 630,
         alt: 'Suryadip Bera - Data Scientist & AI Enthusiast',
@@ -41,16 +41,15 @@ export const metadata = {
     type: 'website',
   },
 
-  // Added Twitter metadata to ensure the large image card appears perfectly on X/Twitter
   twitter: {
     card: 'summary_large_image',
     title: 'Suryadip Bera | Data Scientist & AI Engineer',
     description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
-    images: ['/opengraph-image.png'],
+    images: ['/PIC/opengraph-image.png'], // FIX: Pointing exactly to your PNG
   },
   
   icons: {
-    icon: '/PIC/favicon5.png',
+    icon: '/PIC/favicon.png',
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
