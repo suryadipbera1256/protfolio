@@ -31,18 +31,26 @@ export const metadata = {
     siteName: 'Suryadip Bera Portfolio',
     images: [
       {
-        url: '/PIC/MY_PHOTO_RB.png', // Next.js will now automatically combine this with metadataBase!
-        width: 800,
-        height: 600,
-        alt: 'Suryadip Bera - Data Scientist',
+        url: 'PIC/opengraph-image.png', // Next.js will fetch this from your public folder!
+        width: 1200,
+        height: 630,
+        alt: 'Suryadip Bera - Data Scientist & AI Enthusiast',
       },
     ],
     locale: 'en_US',
     type: 'website',
   },
+
+  // Added Twitter metadata to ensure the large image card appears perfectly on X/Twitter
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Suryadip Bera | Data Scientist & AI Engineer',
+    description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
+    images: ['/opengraph-image.jpg'],
+  },
   
   icons: {
-    icon: '/PIC/favicon.png',
+    icon: '/PIC/favicon5.png',
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
