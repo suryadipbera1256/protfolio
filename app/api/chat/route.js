@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
 import { retrieveRelevant } from "../../../lib/rag"; 
 
+// Tell Vercel this is a dynamic route, never cache it!
+export const dynamic = 'force-dynamic';
+
 export async function POST(request) {
   try {
     const body = await request.json();
     const { message } = body;
     const context = retrieveRelevant(message);
 
-    const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
+    // FIX: Using the direct Model endpoint instead of the generic router
+    const response = await fetch("https://api-inference.huggingface.co/models/Qwen/Qwen2.5-7B-Instruct/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.HF_TOKEN}`,
@@ -20,17 +24,16 @@ export async function POST(request) {
           { role: "user", content: `Context:\n${context}\n\nUser Question: ${message}` }
         ],
         max_tokens: 300,
-        stream: true // Streaming is turned ON
+        stream: true 
       })
     });
 
     if (!response.ok) {
       const errorText = await response.text();
+      console.error("HuggingFace Error:", errorText); // This will show up in Vercel Logs!
       return NextResponse.json({ error: `API Error: ${response.status}` }, { status: 500 });
     }
 
-    // THE FIX: We removed the `await response.json()` code here.
-    // Instead, we instantly return the live stream directly to your ChatWidget!
     return new Response(response.body, {
       headers: {
         "Content-Type": "text/event-stream",
