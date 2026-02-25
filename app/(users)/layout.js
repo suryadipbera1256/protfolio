@@ -46,7 +46,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Suryadip Bera | Data Scientist & AI Engineer',
     description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
-    images: ['/opengraph-image.jpg'],
+    images: ['/opengraph-image.png'],
   },
   
   icons: {
