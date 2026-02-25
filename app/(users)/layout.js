@@ -42,7 +42,7 @@ export const metadata = {
   },
   
   icons: {
-    icon: '/PIC/MY_PHOTO_RB.png',
+    icon: '/PIC/favicon.png',
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
