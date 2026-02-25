@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { profile } from '../../data/profile';
 
-// --- CUSTOM ZERO-LAYOUT-SHIFT TYPEWRITER EFFECT (STRICT-MODE BUG FIXED!) ---
+// --- CUSTOM ZERO-LAYOUT-SHIFT TYPEWRITER EFFECT (MOBILE PERFORMANCE FIX) ---
 function Typewriter({ text, delay = 0, speed = 40, showCursor = false, start = true }) {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -20,14 +20,21 @@ function Typewriter({ text, delay = 0, speed = 40, showCursor = false, start = t
     
     const timeout = setTimeout(() => {
       setIsTyping(true);
+      
+      // ⚠️ MOBILE FIX: If speed is less than 35ms, React updates too fast and freezes mobile browsers.
+      // We limit the update interval to a safe 40ms, and type multiple characters per tick instead!
+      const safeInterval = Math.max(speed, 40);
+      const charsPerTick = speed < 40 ? Math.ceil(40 / speed) : 1;
+
       interval = setInterval(() => {
-        setDisplayedText(text.substring(0, i + 1));
-        i++;
+        i += charsPerTick;
+        setDisplayedText(text.substring(0, i));
+        
         if (i >= text.length) {
           clearInterval(interval);
           setIsTyping(false);
         }
-      }, speed);
+      }, safeInterval);
     }, delay);
 
     // This cleanup function completely stops Next.js from breaking the animation!

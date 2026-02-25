@@ -9,6 +9,14 @@ import Navbar from "../../../components/Navbar";
 function Typewriter({ text, delay = 0, speed = 15, showCursor = false, start = true }) {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isProjectOpen, setIsProjectOpen] = useState(false); 
+  
+  const [visible, setVisible] = useState({
+    introduction: false,
+    experience: false,
+    skills: false,
+    education: false
+  });
 
   useEffect(() => {
     // Wait until triggered
@@ -97,6 +105,9 @@ const skillsData = {
 export default function About() {
   const [activeSection, setActiveSection] = useState('introduction');
   const [isMounted, setIsMounted] = useState(false);
+  
+  // FIX: Added React State to handle mobile tapping for the project highlights
+  const [isProjectOpen, setIsProjectOpen] = useState(false);
   
   const [visible, setVisible] = useState({
     introduction: false,
@@ -299,50 +310,60 @@ export default function About() {
                         </span>
                       </div>
                       
-                      <div className="group mb-8 w-full relative z-20">
-                        <div className="bg-[#141414] border border-[#262626] rounded-2xl overflow-hidden transition-all duration-300 hover:border-cyan-400/50 shadow-sm hover:shadow-[0_0_25px_rgba(6,182,212,0.15)]">
-                          
-                          <div className="p-5 md:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer bg-[#141414] relative z-20">
-                            <h4 className="text-lg sm:text-xl font-bold text-[#f4f4f5] flex items-center gap-3">
-                              <svg className="w-6 h-6 text-cyan-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
-                              Project: FactoryGuard AI
-                            </h4>
-                            <span className="text-xs font-medium px-4 py-2 rounded-full bg-[#0a0a0a] border border-[#333333] text-[#888888] group-hover:bg-cyan-400/10 group-hover:text-cyan-400 group-hover:border-cyan-400/30 transition-all duration-300 flex items-center gap-2 shrink-0 w-max">
-                              Hover for Highlights
-                              <svg className="w-4 h-4 transform transition-transform duration-500 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
-                            </span>
-                          </div>
+                      {/* FIX: UPDATED PROJECT HIGHLIGHTS TO USE CLICK STATE FOR MOBILE */}
+                      {/* --- UPDATED PROJECT BOX --- */}
+<div className="mb-8 w-full relative z-20">
+  <div className="bg-[#141414] border border-[#262626] rounded-2xl overflow-hidden transition-all duration-300 hover:border-cyan-400/50 shadow-sm hover:shadow-[0_0_25px_rgba(6,182,212,0.15)]">
+    
+    {/* 1. Added onClick to make it tap-friendly on mobile */}
+    <div 
+      onClick={() => setIsProjectOpen(!isProjectOpen)}
+      className="p-5 md:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer bg-[#141414] relative z-20 group/btn"
+    >
+      <h4 className="text-lg sm:text-xl font-bold text-[#f4f4f5] flex items-center gap-3">
+        <svg className="w-6 h-6 text-cyan-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
+        Project: FactoryGuard AI
+      </h4>
+      <span className="text-xs font-medium px-4 py-2 rounded-full bg-[#0a0a0a] border border-[#333333] text-[#888888] group-hover/btn:bg-cyan-400/10 group-hover/btn:text-cyan-400 group-hover/btn:border-cyan-400/30 transition-all duration-300 flex items-center gap-2 shrink-0 w-max">
+        {/* Text changes based on whether it is open or closed */}
+        {isProjectOpen ? "Hide Highlights" : "Tap for Highlights"}
+        {/* Arrow spins up when open */}
+        <svg className={`w-4 h-4 transform transition-transform duration-500 ${isProjectOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+      </span>
+    </div>
 
-                          <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out bg-[#050505]">
-                            <div className="overflow-hidden">
-                              <div className="p-6 md:p-8 border-t border-[#1f1f1f]">
-                                <ul className="space-y-4">
-                                  <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
-                                    <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                    <span><strong className="text-[#f4f4f5]">Data Pipeline:</strong> Executed complex sensor interpolations and applied SMOTE to resolve extreme dataset class imbalances.</span>
-                                  </li>
-                                  <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
-                                    <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                    <span><strong className="text-[#f4f4f5]">Feature Engineering:</strong> Calculated rolling means and aggregated raw IoT vibration, temperature, and pressure metrics.</span>
-                                  </li>
-                                  <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
-                                    <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                    <span><strong className="text-[#f4f4f5]">Model Training:</strong> Trained and fine-tuned an XGBoost Classifier for high-accuracy anomaly detection and predictive maintenance.</span>
-                                  </li>
-                                  <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
-                                    <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                    <span><strong className="text-[#f4f4f5]">Explainability:</strong> Implemented SHAP (Shapley Additive exPlanations) values to guarantee transparent model interpretability.</span>
-                                  </li>
-                                  <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
-                                    <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                                    <span><strong className="text-[#f4f4f5]">Deployment:</strong> Architected a Flask API and intuitive UI dashboard for real-time factory risk assessment.</span>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+    {/* 2. Replaced "group-hover" with the React state to control the height */}
+    <div className={`grid transition-all duration-500 ease-in-out bg-[#050505] ${isProjectOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+      <div className="overflow-hidden">
+        <div className="p-6 md:p-8 border-t border-[#1f1f1f]">
+          <ul className="space-y-4">
+            <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
+              <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+              <span><strong className="text-[#f4f4f5]">Data Pipeline:</strong> Executed complex sensor interpolations and applied SMOTE to resolve extreme dataset class imbalances.</span>
+            </li>
+            <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
+              <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+              <span><strong className="text-[#f4f4f5]">Feature Engineering:</strong> Calculated rolling means and aggregated raw IoT vibration, temperature, and pressure metrics.</span>
+            </li>
+            <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
+              <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+              <span><strong className="text-[#f4f4f5]">Model Training:</strong> Trained and fine-tuned an XGBoost Classifier for high-accuracy anomaly detection and predictive maintenance.</span>
+            </li>
+            <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
+              <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+              <span><strong className="text-[#f4f4f5]">Explainability:</strong> Implemented SHAP (Shapley Additive exPlanations) values to guarantee transparent model interpretability.</span>
+            </li>
+            <li className="text-[#888888] leading-relaxed text-sm md:text-base flex items-start gap-3">
+              <svg className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+              <span><strong className="text-[#f4f4f5]">Deployment:</strong> Architected a Flask API and intuitive UI dashboard for real-time factory risk assessment.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/* --- END OF UPDATED PROJECT BOX --- */}
 
                       <div className="w-full overflow-hidden rounded-xl relative z-10 border border-[#1f1f1f]">
                         <div className="flex w-max animate-carousel hover:[animation-play-state:paused]">
@@ -405,7 +426,6 @@ export default function About() {
                       <div className="flex flex-wrap gap-3">
                         {skillsData.wellKnown.map((skill, index) => (
                           <div key={skill.name} className={`transition-all duration-700 ease-out transform ${visible.skills ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: `${index * 50 + 300}ms` }}>
-                            {/* ENHANCED MAGNETIC PILL HOVER */}
                             <span className="relative z-10 flex items-center gap-2 px-3.5 py-1.5 bg-[#141414] border border-[#262626] rounded-xl text-sm font-medium text-[#f4f4f5] hover:border-cyan-400/60 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:-translate-y-1.5 hover:scale-105 transition-all duration-300 ease-out shadow-sm cursor-default">
                               <div className="w-5 h-5 flex items-center justify-center bg-white rounded-md p-0.5"><img src={skill.icon} alt={skill.name} className="w-full h-full object-contain" /></div>
                               {skill.name}
