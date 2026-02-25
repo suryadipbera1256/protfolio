@@ -16,40 +16,45 @@ const geistMono = Geist_Mono({
 
 // --- EXIM-LEVEL PROFESSIONAL METADATA ---
 // --- EXIM-LEVEL PROFESSIONAL METADATA ---
+// --- EXIM-LEVEL PROFESSIONAL METADATA ---
 export const metadata = {
-  // ⚠️ IMPORTANT: Change this to your exact, live Vercel domain!
-  // Example: 'https://suryadip-portfolio.vercel.app'
-  metadataBase: new URL('https://YOUR-LIVE-VERCEL-LINK.vercel.app'), 
+  // ⚠️ IMPORTANT: Replace with your actual live URL!
+  metadataBase: new URL('https://protfolio-surya.vercel.app/PIC/opengraph-image.png', ), 
   
   title: 'Suryadip Bera | Data Scientist & AI/ML Engineer',
   description: 'Portfolio of Suryadip Bera, a passionate Data Scientist and AI Engineer specializing in machine learning, predictive modeling, and scalable data-driven solutions.',
   keywords: ['Suryadip Bera', 'Data Scientist', 'AI Engineer', 'Machine Learning', 'Python', 'Portfolio', 'Bangalore'],
   
   openGraph: {
+    type: 'website',
+    url: 'https://protfolio-surya.vercel.app/PIC/opengraph-image.png', 
     title: 'Suryadip Bera | Data Scientist & AI Engineer',
     description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
     siteName: 'Suryadip Bera Portfolio',
     images: [
       {
-        url: ['https://protfolio-surya.vercel.app/PIC/opengraph-image.png'], // FIX: Pointing exactly to your PNG in the PIC folder
+        url: 'https://protfolio-surya.vercel.app/PIC/opengraph-image.png', 
         width: 1200,
         height: 630,
         alt: 'Suryadip Bera - Data Scientist & AI Enthusiast',
+        type: 'image/png', // Explicitly telling the platform the file type
       },
     ],
     locale: 'en_US',
-    type: 'website',
   },
 
+  // This is the specific code that forces the image to be full-length on top!
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary_large_image', // THIS FORCES THE BIG BANNER
+    site: '@yourtwitterhandle', // Optional: add your twitter handle if you have one
+    creator: '@yourtwitterhandle',
     title: 'Suryadip Bera | Data Scientist & AI Engineer',
     description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
-    images: ['https://protfolio-surya.vercel.app/PIC/opengraph-image.png'], // FIX: Pointing exactly to your PNG
+    images: ['https://protfolio-surya.vercel.app/PIC/opengraph-image.png'], 
   },
   
   icons: {
-    icon: '/PIC/favicon.png',
+    icon: '/PIC/favicon5.png',
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
