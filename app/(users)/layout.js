@@ -31,7 +31,7 @@ export const metadata = {
     siteName: 'Suryadip Bera Portfolio',
     images: [
       {
-        url: '/PIC/opengraph-image.png', // FIX: Pointing exactly to your PNG in the PIC folder
+        url: ['https://protfolio-surya.vercel.app/PIC/opengraph-image.png'], // FIX: Pointing exactly to your PNG in the PIC folder
         width: 1200,
         height: 630,
         alt: 'Suryadip Bera - Data Scientist & AI Enthusiast',
@@ -45,7 +45,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Suryadip Bera | Data Scientist & AI Engineer',
     description: 'Explore my portfolio showcasing advanced projects in Machine Learning, AI, and Data Science.',
-    images: ['/PIC/opengraph-image.png'], // FIX: Pointing exactly to your PNG
+    images: ['https://protfolio-surya.vercel.app/PIC/opengraph-image.png'], // FIX: Pointing exactly to your PNG
   },
   
   icons: {
